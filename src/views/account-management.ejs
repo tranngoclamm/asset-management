@@ -1,0 +1,32 @@
+<!-- Các phần tử HTML khác -->
+<table class="AccountTable mt-2">
+    <tr class="" style="font-weight: bold; text-align: center;">
+      <td>&nbsp;</td>
+      <td>Tên tài khoản</td>
+      <td>Họ tên</td>
+      <td>Email</td>
+      <td style="width: 100px;">Số điện thoại</td>
+      <td>Ngày sinh</td>
+      <td class="w-12 ml-1">Quyền</td>
+      <td style="width: 100px; white-space: nowrap; overflow: hidden;">Địa chỉ</td>
+      <td class="ml-3">&nbsp;</td>
+      <td class="ml-3">&nbsp;</td>
+      <td class="ml-3">&nbsp;</td>
+    </tr>
+    <% accounts.forEach(account => { %>
+      <tr>
+        <td><span><%= account.id %></span></td>
+        <td><%= account.username %></td>
+        <td><%= account.fullname %></td>
+        <td><%= account.email %></td>
+        <td class="pl-2"><%= account.phone %></td>
+        <td><%= account.birthday %></td>
+        <td class="pl-2"><%= account.role %></td>
+        <td><div class="whitespace-nowrap"><%= account.address %></div></td>
+        <td><button><img class="w-6 ml-2" src="../icon/edit.svg" alt=""></button></td>
+        <td><button><img class="w-6 ml-2" src="../icon/user-minus.svg" alt=""></button></td>
+        <td><button><img class="w-6 ml-2" src="../icon/password-reset-icon.png" alt=""></button></td>
+      </tr>
+    <% }) %>
+  </table>
+  <!-- Các phần tử HTML khác -->

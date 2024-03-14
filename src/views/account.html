@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Account</title>
+    <link href="/css/tailwind.css" rel="stylesheet" type="text/css">
+
+</head>
+<body class="bg-gray-100 p-4">
+    <div class="max-w-md mx-auto bg-white p-8 rounded shadow-md">
+        <h1 class="text-2xl mb-4">Add New Account</h1>
+        <form action="/add-account" method="post" enctype="multipart/form-data">
+            <div class="mb-4">
+                <label for="avatar" class="block mb-2">Avatar:</label>
+                <input type="file" id="avatar" name="avatar" accept="image/*" class="border rounded px-4 py-2 w-full">
+            </div>
+            <div class="mb-4">
+                <label for="username" class="block mb-2">Username:</label>
+                <input type="text" id="username" name="username" class="border rounded px-4 py-2 w-full" required>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="block mb-2">Password:</label>
+                <input type="password" id="password" name="password" class="border rounded px-4 py-2 w-full" required>
+            </div>
+            <div class="mb-4">
+                <label for="fullname" class="block mb-2">Full Name:</label>
+                <input type="text" id="fullname" name="fullname" class="border rounded px-4 py-2 w-full" required>
+            </div>
+            <!--Thêm các trường thông tin cần thiết khác ở đây-->
+            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Add Account</button>
+        </form>
+    </div>
+</body>
+</html>
