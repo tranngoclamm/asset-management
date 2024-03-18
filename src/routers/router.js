@@ -26,6 +26,7 @@ router.get('/register', function(request, response) {
 });
 router.post('/register', accountController.addAccount);
 
+
 //upload ảnh với multer
 router.post('/upload-image/product', uploadMulter.single('img_product'), imageController.upload);
 
@@ -34,6 +35,9 @@ router.post('/upload-image/product', uploadMulter.single('img_product'), imageCo
 router.get('/changepassword', function(request, response) {
   response.sendFile(path.join(__dirname, '../views/changepassword.html'));
 });
+router.post('/change-password', accountController.changePassWord); 
+
+// forgotpassword
 router.get('/forgotpassword', function(request, response) {
   response.sendFile(path.join(__dirname, '../views/forgotpassword.html'));
 });

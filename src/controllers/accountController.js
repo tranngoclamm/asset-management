@@ -129,6 +129,43 @@ function deleteAccount(request, response) {
   });
 }
 
+function changePassWord(req, res){
+  const { username, oldPassword, newPassword } = req.body;
+
+    // Kiểm tra xem tên người dùng có tồn tại trong cơ sở dữ liệu hay không
+    connection.query('SELECT * FROM accounts WHERE username = ?', [username], (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Đã xảy ra lỗi trong quá trình xử lý yêu cầu');
+            return;
+        }
+
+        if (results.length === 0) {
+            res.status(400).send('Tài khoản không tồn tại');
+            return;
+        }
+
+        const user = results[0];
+
+        // So sánh mật khẩu cũ nhập vào với mật khẩu trong cơ sở dữ liệu
+        if (oldPassword !== user.password) {
+            res.status(400).send('Mật khẩu cũ không chính xác');
+            return;
+        }
+
+        // Nếu mật khẩu cũ chính xác, tiến hành cập nhật mật khẩu mới
+        connection.query('UPDATE accounts SET password = ? WHERE username = ?', [newPassword, username], (err, result) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Đã xảy ra lỗi trong quá trình xử lý yêu cầu');
+                return;
+            }
+
+            res.status(200).send('Đổi mật khẩu thành công');
+        });
+    });
+}
+
 function resetPassword(request, response) {
 const { username } = request.body;
 console.log(request.body)
@@ -198,5 +235,6 @@ module.exports = {
   addAccount,
   updateAccount,
   deleteAccount,
-  resetPassword
+  resetPassword,
+  changePassWord
 };

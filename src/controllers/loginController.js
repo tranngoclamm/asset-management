@@ -16,6 +16,7 @@ function authenticateUser(request, response) {
         request.session.username = user_id;
         request.session.id = user_id;
         request.session.user_id = user_id;
+        request.session.user = user;
         request.session.role = role; // Lưu role vào session
         response.redirect('/home');
       } else {

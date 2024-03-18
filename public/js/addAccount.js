@@ -159,11 +159,9 @@ async function addUser(){
     }
     document.getElementById('id_avtforImg').value = id; // gán id vào form up ảnh
     setTimeout(uploadImage, 20); // up ảnh
-    setTimeout(close, 40); // up ảnh
 
     document.getElementById('accountForm').style.display = 'none'; // ẩn giao diện
-  // document.getElementById('submit_img').click();
-
+    setTimeout(50, window.location.href="/account-management");
   } catch (err) {
     alert('Tài khoản đã có người sử dụng!')
   }
@@ -423,6 +421,47 @@ function uploadImage() {
     console.error('Upload image failed:', error);
   }
 }
+
+// change password
+ async function changePassWord() {
+  const username = document.getElementById('username').value;
+  const oldPassword = document.getElementById('oldpassword').value;
+  const newPassword = document.getElementById('newpassword').value;
+  const confirmPassword = document.getElementById('confirm-password').value;
+
+  // Kiểm tra mật khẩu mới và mật khẩu nhập lại
+  if (newPassword !== confirmPassword) {
+      alert('Mật khẩu mới và mật khẩu nhập lại không khớp');
+      return;
+  }
+
+  try {
+    const response = await axios.post('/change-password', {
+      username: username,
+      oldPassword: oldPassword,
+      newPassword: newPassword
+    });
+  
+    // Xử lý phản hồi từ máy chủ ở đây
+    console.log(response.data); // Hiển thị dữ liệu phản hồi từ máy chủ
+    alert('Đổi mật khẩu thành công');
+  } catch (error) {
+    // Xử lý lỗi ở đây
+    if (error.response) {
+      // Phản hồi từ máy chủ có mã lỗi
+      if (error.response.status === 400) {
+        // Lỗi tài khoản không tồn tại
+        alert('Mật khẩu cũ không đúng');
+      } else if (error.response.status === 500) {
+        // Lỗi trong quá trình xử lý yêu cầu
+        alert('Đã xảy ra lỗi trong quá trình xử lý yêu cầu');
+      }
+    } else {
+      // Lỗi không có phản hồi từ máy chủ
+      console.error(error);
+      alert('Đã xảy ra lỗi khi đổi mật khẩu');
+    }
+  }}
 
 // xuất Excel 
 function exportToExcel() {
