@@ -43,7 +43,18 @@ function home(request, response) {
   }
 }
 
+function logout(request, response) {
+  // Xóa tất cả các thông tin phiên của người dùng
+  request.session.destroy(function(error) {
+    if (error) {
+      console.log(error);
+    }
+    response.redirect('/'); // Chuyển hướng đến trang đăng nhập sau khi đăng xuất
+  });
+}
+
 module.exports = {
   authenticateUser,
-  home
+  home,
+  logout
 };

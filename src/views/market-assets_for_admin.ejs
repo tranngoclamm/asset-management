@@ -8,53 +8,76 @@
 </head>
 <body style="height: 100vh">
     <header class="flex">
-        <div class="w-2/12 bg-blue-500 h-11">
+        <div class="w-2/12 bg-blue-500 h-11" style="background-color: #3a82f8;">
         </div>
-        <div class="w-10/12">
+        <div class="w-10/12 relative">
             <div class="flex h-11 bg-blue-500 items-center">
                 <button>
                     <img class="text-justify h-7 ml-2" src="images/icons/bars-solid.svg" alt="">
                 </button>
-                <h2 class="text-white font-sans ml-2">QUẢN LÝ TÀI KHOẢN</h2>
+                <h2 class="text-white font-sans font-medium ml-2">QUẢN LÝ TÀI KHOẢN</h2>
                 <div class="ml-auto flex items-center">
-                    <span class="text-xs text-white mr-1">Nguyễn Phương Hoa</span>
+                    <!-- <span class="text-xs text-white mr-1">Nguyễn Phương Hoa</span> -->
+                    <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between text-xs text-white mr-1">
+                        <p class="mr-1 font-medium">Nguyễn Phương Hoa</p> 
+                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg>
+                    </button>
                     <button>
-                        <img src="images/avatars/test-avt.jpg" class="w-8 h-8 border border-white rounded-full mr-2" alt="">
+                        <img src="images/avatars/test-avt.jpg" class="w-8 h-8 border border-white rounded-full ml-1 mr-2" alt="">
                     </button>
                     <button class="w-4 h-4 text-xs flex justify-center items-center border border-white rounded-full text-white mr-10">?</button>
+                </div>
+            </div>
+            <div id="dropdownNavbar" class="z-30 absolute hidden bot-2 right-24 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Thông tin tài khoản</a>
+                  </li>
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Giỏ hàng</a>
+                  </li>
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lịch sử giao dịch</a>
+                  </li>
+                </ul>
+                <div class="py-1">
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Đăng xuất</a>
                 </div>
             </div>
         </div>
     </header>
     <container class="flex" style="height: 92vh">
-        <nav class="w-2/12 bg-gray-100 flex flex-col items-center">
-            <div class="w-3/4 h-52 mt-5">
-              <div class="h-5/6 w-full rounded border border-black">
-                <img src="images/avatars/test-avt.jpg" alt="">
+        <nav class="w-2/12 text-black font-sans border-r border-gray-400 bg-100 h-fulls relative  flex flex-col shadow-md items-center" style="color: #BBC0C4;background-color:#263755 ; background-image: url('images/nigh.jpg');background-size:cover; background-position: center;">
+            <!-- <div class="w-full h-52" style=" position: absolute;top: 0;  left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.01);"> -->
+            <div class="w-full h-40 relative border-b bg-gray-50 border-gray-600 bouder-double" style="background-color:#32373C ; background-image: url('images/night.jpg');background-size:cover; background-position: center;"> 
+              <div class="h-2/6 w-full p-8 pl-16 rounded-full  ">
+                <img class="rounded-full h-20 opacity-95 " src="images/avatars/test-avt.jpg" alt=""> 
               </div>
-              <button class="text-xs border border-black rounded-sm py-0.5 px-2">Đổi mật khẩu</button>
-              <button class="text-xs border border-black rounded-sm py-0.5 px-2">Đăng xuất</button>
+              <button class="text-xs absolute bottom-2.5 left-5  rounded-sm py-0.5 px-2">Đổi mật khẩu</button>
+              <button class="text-xs absolute bottom-2.5 left-28  rounded-sm py-0.5 px-1">Đăng xuất</button>
             </div>
-            <menu class="w-11/12">
-                <button onclick="redirectToAccountManagement()" class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded hover:bg-blue-500 dark:hover:bg-gray-700">
-                    <span class="hover:bg-gray-100 dark:hover:bg-gray-700">Quản lý tài khoản</span></button>
-                <button class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span>Quản lý chợ tài sản</span></button>
-                <div id="subMenu" class="hidden">
-                    <button>Xem tài sản đang bán</button>
-                    <button>Thống kê giao dịch</button>
-                </div>
-                <button class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span>Xem chợ tài sản</span></button>
-                <button class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span">Quản lý tài sản</span>
-                </button>
-                <button onclick="redirectToExpensePlanner()" class="flex border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span>Lập kế hoạch chi tiêu</span>
-                </button>
-            </menu>
-            <div class="w-full m-auto mb-0.5 ml-1">
-                <button class="border border-black rounded px-4" onclick="logout()">Thoát</button>
+            <div class="w-full mb-0.5 ml-1">
+                <menu class="h-64 flex-col flex pl-2.5 pr-3.5 rounded-lg items-center justify-evenly">
+                     <button onclick="redirectToAccountManagement()" class="flex items-center hover:bg-gray-600 dark:hover:bg-gray-700  hover:border-gray-600  w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <a class="h-full border-y-2 border-white">Quản lý tài khoản</a>
+                    </button>
+                    <button onclick="redirectToMarketManagement()" class="flex items-center dark:text-white hover:bg-gray-600 dark:hover:bg-gray-700  w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <a>Quản lý chợ tài sản</a>
+                    </button>
+                    <div id="subMenu" class="hidden">
+                        <button>Xem tài sản đang bán</button>
+                        <button>Thống kê giao dịch</button>
+                    </div> 
+                    <button onclick="redirectToMarket()" class="flex items-center   hover:bg-gray-600 dark:hover:bg-gray-700  w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <span>Xem chợ tài sản</span></button>
+                    <button onclick="redirectToAssetManagement()" class="flex items-center  hover:bg-gray-600 dark:hover:bg-gray-700    w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <span">Quản lý tài sản</span>
+                    </button>
+                    <button onclick="redirectToExpensePlanner()" class="flex  hover:bg-gray-600 dark:hover:bg-gray-700   w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <span>Lập kế hoạch chi tiêu</span>
+                    </button>
+                </menu>
+                <button class=" absolute bottom-1.5 -left-1.5 rounded px-4" onclick="logout()">Thoát</button>
             </div>
         </nav>
         <div class="bg-gray-300 w-10/12 h-full p-4 relative">
@@ -133,11 +156,7 @@
                                     </div>
                                     <div class="relative border p-2" style="max-width: 100%; height: 100px;">
                                         <div class="mb-2 overflow-hidden overflow-ellipsis text-sm break-words text-[0.875rem] leading-5" style="margin-bottom: 0.25rem; max-height: 62px;line-clamp: 2; -webkit-line-clamp: 2;">
-                                            <!-- <p class="whitespace-pre-wrap overflow-hidden overflow-ellipsis break-words font-normal text-gray-700 text-sm text-[0.875rem]" style="max-height: 3.5rem;">
-                                            </p> -->
                                             <%= asset.asset_name %>
-                                            <!-- <p style="max-height: 45px;text-wrap: wrap;" class=" overflow-ellipsis font-normal text-gray-700 text-sm text-[0.875rem]"><%= asset.asset_name %></p> -->
-                                            <!-- <div class="border border-red-400 text-sm text-red-500 text-[#ee4d2d] ">24/11/2018 -5%</div> -->
 
                                         </div>
                                         <div class="absolute bottom-1" style="min-height: 20px;">
@@ -146,37 +165,8 @@
                                                     const formattedPrice = asset.price.toLocaleString();
                                                 %>
                                                 <span class="text-base align-baseline text-red-500" style="line-height: 1.25rem;"><%= formattedPrice %>đ</span>
-                                            <!-- <span id="price_formated" class="text-base align-baseline text-red-500" style="line-height: 1.25rem;"><%= asset.price %>đ</span> -->
                                         </div>
                                     </div>
-                                    <!-- <div class="whitespace-nowrap py-4">@<%= asset.username %></div>
-                                    <div class="whitespace-nowrap py-4"><%= asset.price %></div>
-                                    <div class="whitespace-nowrap py-4">
-                                        <% 
-                                            const date = new Date(asset.purchase_date);
-                                            const day = date.getDate();
-                                            const month = date.getMonth() + 1; // Vì tháng trong JavaScript bắt đầu từ 0
-                                            const year = date.getFullYear();
-                                            const formattedDate = day + '/' + month + '/' + year;
-                                        %>
-                                        <%= formattedDate %>
-                                    </div>
-                                    <div class="whitespace-nowrap py-4 text-center"><%= asset.warranty_period %></div>
-                                    <div class="whitespace-nowrap py-4 text-center"><%= asset.depreciation %></div>
-                                    <div class="max-w-sm overflow-hidden overflow-ellipsis whitespace-nowrap py-4"><%= asset.description %></div>
-                                    <div class="whitespace-nowrap py-2 justify-center items-center text-center pr-4 text-blue-700 font-medium">
-                                        <div onclick="openSellAsset('<%= asset.asset_id %>')" data-account-id="<%= asset.asset_id %>" class="flex h-full pt-1.5 items-center justify-center">
-                                            <img  onclick="" class="w-6 cursor-pointer text-blue-500 " src="images/icons/shield-checkmark-line-icon.svg" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="whitespace-nowrap py-2 justify-center items-center text-center pr-4 text-blue-700 font-medium">
-                                        <div onclick="openSellAsset('<%= asset.asset_id %>')" data-account-id="<%= asset.asset_id %>" class="flex h-full pt-1.5 items-center justify-center">
-                                            <img  onclick="" class="w-6 cursor-pointer text-blue-500 " src="images/icons/red-x-icon.svg" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="whitespace-nowrap py-2 justify-center items-center text-center pr-4 text-blue-700 font-medium">
-                                        <input class="checkboxBtn  py-2 text-center pr-4 text-blue-700 font-medium hidden" type="checkbox" name="" id="" onclick="openDeleteBtnSelect()">
-                                    </div> -->
                                 </div>
                             <% }) %>
                         </div>
@@ -184,8 +174,10 @@
                       </tbody>
                 </table>
             </div>
-              <div id="AssetDetail" class="bg-black hidden bg-opacity-10 absolute z-40 top-4" style="height: 89vh; width: 82vw;">
-                <div class="container mx-auto p-6 pr-2 bg-white shadow-lg rounded-lg relative" style="height: ; width: 48vw;">
+
+
+              <div id="AssetDetail" class="bg-black hidden bg-opacity-10 absolute pt-14 z-40 top-0" style="height: 89vh; width: 82vw; padding-top: 50px; padding-left: 180px">
+                <div class="container p-6 pr-2 bg-white shadow-lg rounded-lg relative" style="height: ; width: 48vw;">
                     <div type="button" onclick="hiddenAssetDetail()" class="absolute cursor-pointer text-gray-400 absolute top-2 right-2 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                         <span class="sr-only">Close modal</span>
@@ -266,6 +258,7 @@
                   </form>
                 </div>
             </div>
+
             <div id="DeleteForm" class="absolute z-20 hidden top-0 py-20 text-center bg-black bg-opacity-10 " style="height: 89vh;width: 81vw;">
               <form action="/market-management/delete" method="post" class="w-2/6 ml-72 p-6 rounded-xl relative bg-white opacity-100">
                   <input type="hidden" name="selectedIds" id="selectedIds" value="">
@@ -275,7 +268,6 @@
                   </div>
                   <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
                   <p class="mb-4 text-gray-500 dark:text-gray-300">Xóa các tài sản đã chọn khỏi chợ tài sản?
-                      <!-- <span id="idDeleted" class="text-blue-600">@admin12</span> khỏi hệ thống? -->
                   </p>
                   <div class="flex justify-center items-center space-x-4">
                       <button type="submit" id="submitBtn" class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
@@ -290,7 +282,6 @@
         </div>
 
     </container>
-    <!-- <script src="../controllers/accountController.js" type="text/javascript"></script> -->
     <script src="/js/redirect.js" type="text/javascript"></script>
     <script src="/js/market.js" type="text/javascript"></script>
     <script src="/js/marketForAdmin.js" type="text/javascript"></script>

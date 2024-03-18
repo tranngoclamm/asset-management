@@ -8,53 +8,76 @@
 </head>
 <body style="height: 100vh">
     <header class="flex">
-        <div class="w-2/12 bg-blue-500 h-11">
+        <div class="w-2/12 bg-blue-500 h-11" style="background-color: #3a82f8;">
         </div>
-        <div class="w-10/12">
+        <div class="w-10/12 relative">
             <div class="flex h-11 bg-blue-500 items-center">
                 <button>
                     <img class="text-justify h-7 ml-2" src="images/icons/bars-solid.svg" alt="">
                 </button>
-                <h2 class="text-white font-sans ml-2">QUẢN LÝ TÀI KHOẢN</h2>
+                <h2 class="text-white font-sans font-medium ml-2">QUẢN LÝ TÀI KHOẢN</h2>
                 <div class="ml-auto flex items-center">
-                    <span class="text-xs text-white mr-1">Nguyễn Phương Hoa</span>
+                    <!-- <span class="text-xs text-white mr-1">Nguyễn Phương Hoa</span> -->
+                    <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between text-xs text-white mr-1">
+                        <p class="mr-1 font-medium">Nguyễn Phương Hoa</p> 
+                        <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg>
+                    </button>
                     <button>
-                        <img src="images/avatars/test-avt.jpg" class="w-8 h-8 border border-white rounded-full mr-2" alt="">
+                        <img src="images/avatars/test-avt.jpg" class="w-8 h-8 border border-white rounded-full ml-1 mr-2" alt="">
                     </button>
                     <button class="w-4 h-4 text-xs flex justify-center items-center border border-white rounded-full text-white mr-10">?</button>
+                </div>
+            </div>
+            <div id="dropdownNavbar" class="z-30 absolute hidden bot-2 right-24 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Thông tin tài khoản</a>
+                  </li>
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Giỏ hàng</a>
+                  </li>
+                  <li>
+                    <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Lịch sử giao dịch</a>
+                  </li>
+                </ul>
+                <div class="py-1">
+                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Đăng xuất</a>
                 </div>
             </div>
         </div>
     </header>
     <container class="flex" style="height: 92vh">
-        <nav class="w-2/12 bg-gray-100 flex flex-col items-center">
-            <div class="w-3/4 h-52 mt-5">
-              <div class="h-5/6 w-full rounded border border-black">
-                <img src="images/avatars/test-avt.jpg" alt="">
+        <nav class="w-2/12 text-black font-sans border-r border-gray-400 bg-100 h-fulls relative  flex flex-col shadow-md items-center" style="color: #BBC0C4;background-color:#263755 ; background-image: url('images/nigh.jpg');background-size:cover; background-position: center;">
+            <!-- <div class="w-full h-52" style=" position: absolute;top: 0;  left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.01);"> -->
+            <div class="w-full h-40 relative border-b bg-gray-50 border-gray-600 bouder-double" style="background-color:#32373C ; background-image: url('images/night.jpg');background-size:cover; background-position: center;"> 
+              <div class="h-2/6 w-full p-8 pl-16 rounded-full  ">
+                <img class="rounded-full h-20 opacity-95 " src="images/avatars/test-avt.jpg" alt=""> 
               </div>
-              <button class="text-xs border border-black rounded-sm py-0.5 px-2">Đổi mật khẩu</button>
-              <button class="text-xs border border-black rounded-sm py-0.5 px-2">Đăng xuất</button>
+              <button class="text-xs absolute bottom-2.5 left-5  rounded-sm py-0.5 px-2">Đổi mật khẩu</button>
+              <button class="text-xs absolute bottom-2.5 left-28  rounded-sm py-0.5 px-1">Đăng xuất</button>
             </div>
-            <menu class="w-11/12">
-                <button onclick="redirectToAccountManagement()" class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded hover:bg-blue-500 dark:hover:bg-gray-700">
-                    <span class="hover:bg-gray-100 dark:hover:bg-gray-700">Quản lý tài khoản</span></button>
-                <button class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span>Quản lý chợ tài sản</span></button>
-                <div id="subMenu" class="hidden">
-                    <button>Xem tài sản đang bán</button>
-                    <button>Thống kê giao dịch</button>
-                </div>
-                <button class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span>Xem chợ tài sản</span></button>
-                <button class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span">Quản lý tài sản</span>
-                </button>
-                <button onclick="redirectToExpensePlanner()" class="flex border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span>Lập kế hoạch chi tiêu</span>
-                </button>
-            </menu>
-            <div class="w-full m-auto mb-0.5 ml-1">
-                <button class="border border-black rounded px-4" onclick="logout()">Thoát</button>
+            <div class="w-full mb-0.5 ml-1">
+                <menu class="h-64 flex-col flex pl-2.5 pr-3.5 rounded-lg items-center justify-evenly">
+                     <button onclick="redirectToAccountManagement()" class="flex items-center hover:bg-gray-600 dark:hover:bg-gray-700  hover:border-gray-600  w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <a class="h-full border-y-2 border-white">Quản lý tài khoản</a>
+                    </button>
+                    <button onclick="redirectToMarketManagement()" class="flex items-center dark:text-white hover:bg-gray-600 dark:hover:bg-gray-700  w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <a>Quản lý chợ tài sản</a>
+                    </button>
+                    <div id="subMenu" class="hidden">
+                        <button>Xem tài sản đang bán</button>
+                        <button>Thống kê giao dịch</button>
+                    </div> 
+                    <button onclick="redirectToMarket()" class="flex items-center   hover:bg-gray-600 dark:hover:bg-gray-700  w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <span>Xem chợ tài sản</span></button>
+                    <button onclick="redirectToAssetManagement()" class="flex items-center  hover:bg-gray-600 dark:hover:bg-gray-700    w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <span">Quản lý tài sản</span>
+                    </button>
+                    <button onclick="redirectToExpensePlanner()" class="flex  hover:bg-gray-600 dark:hover:bg-gray-700   w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <span>Lập kế hoạch chi tiêu</span>
+                    </button>
+                </menu>
+                <button class=" absolute bottom-1.5 -left-1.5 rounded px-4" onclick="logout()">Thoát</button>
             </div>
         </nav>
         <div class="bg-gray-300 w-10/12 h-full p-4 relative">
@@ -127,25 +150,46 @@
                           <tr id="asset_<%= asset.id %>" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td class="hidden"><%= asset.id %></td>
                             <td onclick="openEditAsset('<%= asset.id %>')" id="<%= asset.id %>" data-account-id="<%= asset.id %>" class="py-1 cursor-pointer font-medium text-gray-900 whitespace-nowrap " style="min-width: 44px;">
-                              <img class="w-9 bg-contain h-11 ml-2" src="images/products/<%= index %>.jpg" alt="">
+                              <img class="w-9 bg-contain h-11 ml-2" src="/images/products/<%= asset.id %>.jpg" alt="">
                             </td>
                             <td class="pl-3 whitespace-nowrap overflow-hidden overflow-ellipsis font-medium text-gray-900 dark:text-white" style="max-width: 200px;"><%= asset.asset_name %></td>
-                            <td  class="px-2 whitespace-nowrap py-4"><%= asset.category %></td>
+                            <td class="px-2 whitespace-nowrap py-4" data-value="<%= asset.category %>"><%= asset.category %></td>
                             <td class="pr-4 whitespace-nowrap py-4 text-center"><%= asset.status %></td>
-                            <td  class="px-2 whitespace-nowrap py-4"><%= asset.price %></td>
+                            <td class="px-2 whitespace-nowrap py-4" data-value="<%=asset.price%>">
+                                <% if (asset.price != 0) { %>
+                                    <%= asset.price.toLocaleString() + "đ" %>
+                                  <% } %>
+                            </td>
                             <td class="px-2 whitespace-nowrap py-4">
                                 <% 
-                                    const date = new Date(asset.purchase_date);
-                                    const day = date.getDate();
-                                    const month = date.getMonth() + 1; // Vì tháng trong JavaScript bắt đầu từ 0
-                                    const year = date.getFullYear();
-                                    const formattedDate = day + '/' + month + '/' + year;
-                                %>
-                                <%= formattedDate %>
+                                const date = new Date(asset.purchase_date);
+                                const day = date.getDate();
+                                const month = date.getMonth() + 1; // Vì tháng trong JavaScript bắt đầu từ 0
+                                const year = date.getFullYear();
+                                const formattedDate = day + '/' + month + '/' + year;
+                                if (!isNaN(date)) {
+                                  %><%= formattedDate %><%
+                                } else {
+                                  %> <%
+                                }
+                              %>
                              </td>
                             <!-- <td class="pr-4 whitespace-nowrap py-4"><%= asset.purchase_date %></td> -->
-                            <td  class="px-2 whitespace-nowrap py-4 text-center"><%= asset.warranty_period %></td>
-                            <td  class="px-2 whitespace-nowrap py-4 text-center pr-4"><%= asset.depreciation %></td>
+                            <td  class="px-2 whitespace-nowrap py-4 text-center" data-value="<%= asset.warranty_period %>">
+                                <% 
+                                if (asset.warranty_period != "null") {
+                                    %><%= asset.warranty_period %> <%
+                                } 
+                              %>
+                            </td>
+                            <td  class="px-2 whitespace-nowrap py-4 text-center pr-4" data-value-='<%= asset.depreciation %>''>
+                                <% 
+                                if ( asset.depreciation != 0) {
+                                    %><%= asset.depreciation %> <%
+                                } 
+                              %>
+                                
+                            </td>
                             <td  class="pl-2 max-w[218px] overflow-hidden overflow-ellipsis whitespace-nowrap py-4 pr-2" style="max-width: 218px;"><%= asset.description %></td>
                             <td class="changeBtn w-10 flex whitespace-nowrap py-2 justify-center items-center text-center pr-4 text-blue-700 font-medium">
                                 <div onclick="openSellAsset('<%= asset.id %>')" data-account-id="<%= asset.id %>" class="flex h-full pt-1.5 items-center justify-center">
@@ -158,31 +202,40 @@
                       </tbody>
                 </table>
             </div>
-              <div id="AssetForm" class="bg-black hidden bg-opacity-10 absolute z-10 top-4" style="height: 89vh; width: 82vw;">
+
+            <!-- form gửi ảnh -->
+            <form id="img-upload-form" class="hidden" enctype="multipart/form-data">
+                <input type="file" name="img_product" id="img_product" onchange="handleImageSelection(event)">
+                <input type="text" name="id" id="id_assetforImg" value="1">
+                <input type="text" name="isAccount" value="0">
+                <button type="button" id="submit_img" onclick="uploadImage()">Upload Image</button>
+            </form>
+
+            <!-- giao diện thêm, sửa tài sản -->
+              <div id="AssetForm" class="bg-black hidden  bg-opacity-10 absolute z-10 top-4" style="height: 89vh; width: 82vw;">
                 <div class="container mx-auto py-8 px-9 bg-white shadow-lg rounded-lg relative" style="height: 83vh; width: 48vw;">
                     <div type="button" onclick="hiddenAssetForm()" class="absolute cursor-pointer text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                         <span class="sr-only">Close modal</span>
                     </div>
-                  <form action="/asset-management/add" method="post" id="AssetAction">
+                  <form action="/asset-management/update" method="post" id="AssetAction">
                     <input type="text" name="id" id="asset_id" class="hidden">
                     <div class="flex gap-3">
                       <div>
-                        <div id="image-preview" onclick="chooseImage()" class="bg-gray-200 bg-contain cursor-pointer rounded-md w-40 h-52 mt-8 mr-2 flex justify-center items-center mb-4 border border-blue-500">
-                          <span class="tex t-blue-500 text-lg">Upload Image</span>
+                        <div id="image-preview" onclick="chooseImage()" class="bg-gray-200 bg-cover bg-center cursor-pointer rounded-md w-40 h-52 mt-8 mr-2 flex justify-center items-center mb-4 border border-blue-500">
+                          <span id="chooseImageSpan" class="tex t-blue-500 text-lg">Upload Image</span>
                         </div>
-                        <input type="file" id="fileInput" name="asset-image" class="hidden">
                       </div>
 
                       <div>
                         <div class="flex mb-3">
                             <div class="w-4/6 pr-4">
                                 <label class="block mb-2 font-bold">Tên tài sản:</label>
-                                <input type="text" id="asset_name" name="asset_name" class="border w-full h-10 border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                                <input type="text" placeholder="" spellcheck="false" id="asset_name" name="asset_name" class="border w-full h-10 border-gray-300 rounded-md p-2 outline-none focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
                             <div class="w-2/6">
-                                <label for="asset-category" class="block mb-2 font-bold whitespace-nowrap">Thể loại:</label>
-                                <select id="category" name="category" class="border cursor-pointer w-full border-gray-300 rounded-md px-1 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                                <label for="asset-category" aria-placeholder="Điện tử" class="block mb-2 font-bold whitespace-nowrap">Thể loại:</label>
+                                <select id="category" name="category" class="border cursor-pointer w-full border-gray-300 rounded-md px-1 py-2 outline-none focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
                                   <option>Nội thất</option>
                                   <option>Kệ kho</option>
                                   <option>Điện máy</option>
@@ -197,25 +250,25 @@
                         <div class="flex mb-3">
                             <div class="w-2/5">
                                 <label for="asset-status" class="block mb-2 font-bold">Trạng thái:</label>
-                                <select id="asset_status" name="status" class="w-full cursor-pointer border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                                <select id="asset_status" name="status" class="w-full cursor-pointer border border-gray-300 rounded-md p-2 outline-none focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                   <option value="Mới">Mới</option>
                                   <option value="Cũ">Cũ</option>
                                 </select>
                             </div>
                             <div class="w-3/5 pl-4">
                                 <label for="purchase-date" class="block mb-2 font-bold">Ngày mua:</label>
-                                <input type="date" id="date" name="purchase_date" class="w-full cursor-pointer h-10 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                <input type="date" id="date" name="purchase_date" class="w-full cursor-pointer h-10 border border-gray-300 rounded-md p-2 outline-none focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
                         </div>
 
                         <div class="flex">
                             <div class="w-1/2 mr-4">
                                 <label for="depreciation" class="block mb-2 font-bold">Khấu hao(%):</label>
-                                <input type="number" step="0.01" id="depreciation" name="depreciation" class="border h-10 w-full border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                                <input type="number" step="0.01" id="depreciation" name="depreciation" class="border h-10 w-full border-gray-300 rounded-md p-2 outline-none focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
                             <div class="w-1/2">
                                 <label for="asset-price" class="block mb-2 font-bold">Giá:</label>
-                                <input type="number" id="price" name="price" class="w-full h-10 border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-blue-500" required>
+                                <input type="number" id="price" name="price" class="w-full h-10 border border-gray-300 rounded-md p-2 outline-none focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             </div>
                         </div>
                         
@@ -223,27 +276,55 @@
                     </div>
                     <div class="flex">
                       <div class="w-1/3 pr-4">
-                        <label for="warranty_period" class="block mb-2 font-bold">Bảo hành:</label>
-                        <input type="number" id="warranty_period" name="warranty_period" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-blue-500">
-                        <div class="flex gap-2 items-center justify-center ">
-                            <button id="submitBtn" class="mt-8 cursor-pointer flex items-center justify-center w-full bg-white border-gray-300 foucus:ring-1 hover:bg-blue-700 text-white font-semibold py-2 px-4 border rounded shadow">
-                              <img class="w-5 mr-2 cursor-pointer hidden " src="images/icons/transaction-management-2.svg" alt="">
-                              <p id="labelAssetBtn" class="text-white text-center">Đăng bán</p>
-                          </button>
-                            <div onclick="openDeleteAsset()" class="w-16 cursor-pointer font-light mt-8 hidden" id="deleteBtn"><img class="w-10 font-light" src="/images/icons/delete-124.svg" alt=""></div>
+                        <label for="warranty_period" class="block mb-2 font-bold">Bảo hành: <span class="font-normal"></label>
+                        <div class="flex border-gray-300 rounded-md" style="border-width: 1px;">
+                            <input type="text" id="warranty_period" name="warranty_period" class="w-3/6  rounded-md py-2 text-right outline-none focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select name="" id="warranty_type" class="w-4/6 cursor-pointer  rounded-md pr-1 py-2 outline-none focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
+                                <option value="" selected></option>
+                                <option value="năm">năm</option>
+                                <option value="tháng">tháng</option>
+                                <option value="ngày">ngày</option>
+                            </select>
+                        </div>
+                       
+
+                        <div id="actionBtn" class="flex confirmBtnList hidden gap-1 items-center  justify-center ">
+                            <div id="submitBtn"  onclick="submitEvent('add')" class="mt-8 cursor-pointer  flex items-center justify-center w-full  border-gray-300 foucus:ring-1  text-white font-semibold py-2 px-4 border rounded shadow">
+                              <img id="icon-sell" class="w-5 mr-2 cursor-pointer hidden " src="images/icons/transaction-management-2.svg" alt="">
+                              <p id="labelAssetBtn" class="text-white text-center">Lưu</p>
+                          </div>
+                          <button id="hiddenConfirmBtn"></button>
+                            <div onclick="openDeleteAsset()" class="w-16 cursor-pointer hidden font-light mt-8 " id="deleteBtn"><img class="w-8 h-8 font-light" src="/images/icons/recycle-bin-line-icon.svg" alt=""></div>
+                        </div>
+
+                        <div id="sellBtn" onclick="submitEvent('edit')" class="mt-8 confirmBtnList hidden  cursor-pointer flex items-center justify-center w-full bg-blue-600  border-blue-600 boder-8 hover:bg-blue-700 text-white font-semibold py-2 pr-4 pl-2 border rounded shadow" style="background-color: rgb(253, 253, 253);border-width: 1.5px;box-shadow: #BBC0C4;" >
+                            <img id="icon-sell" class="w-5 mr-2 cursor-pointer hidden " src="images/icons/transaction-management-2.svg" alt="" style="display: block;">
+                            <p id="labelAssetBtn" class="text-white text-center" style="color: blue;">Đăng bán</p>
+                        </div>
+
+                        <div id="waitBtn" class="mt-8 confirmBtnList disabled hidden   flex items-center justify-center w-full bg-gray-600 rounded-md  text-white font-semibold py-2 pr-4 pl-2 border border-gray-300" style="background-color: #F3F3F3;box-shadow: #BBC0C4;" >
+                            <img id="icon-sell" class="w-5 mr-2   text-white " src="images/icons/1-wait.svg" alt="" style="display: block;">
+                            <label id="labelAssetBtn" class="text-gray-500 read-only text-center" >Chờ duyệt..</label>
+                        </div>
+
+                        <div id="sellingBtn" class="mt-8 confirmBtnList disabled hidden    flex items-center justify-center w-full bg-gray-600 rounded-md  text-white font-semibold py-2 pr-4 pl-2 border border-gray-300" style="background-color: #F3F3F3;box-shadow: #BBC0C4;" >
+                            <img id="icon-sell" class="w-6 mr-2   text-white " src="images/icons/wait-for-1.svg" alt="" style="display: block;">
+                            <label id="labelAssetBtn" class="text-gray-500 read-only text-center" >Đang bán..</label>
                         </div>
 
                       </div>
                   
                       <div class="w-2/3">
                         <label for="description" class="block mb-2 font-bold">Chú thích:</label>
-                        <textarea id="description" name="description" rows="4" class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-1 focus:ring-blue-500"></textarea>
+                        <textarea id="description" spellcheck="false" name="description" rows="4" class="w-full border border-gray-300 rounded-md p-2 outline-none focus:ring-blue-500 focus:border-blue-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
                       </div>
                     </div>
                   </form>
                 </div>
             </div>
-            <div id="DeleteForm" class="absolute z-20 hidden top-0 py-20 text-center bg-black bg-opacity-10 " style="height: 89vh;width: 81vw;">
+
+
+            <div id="DeleteForm" class="absolute z-20 hidden top-0 py-32 text-center bg-black bg-opacity-10 " style="height: 89vh;width: 81vw;">
               <form action="/asset-management/delete" method="post" class="w-2/6 ml-72 p-6 rounded-xl relative bg-white opacity-100">
                   <input type="hidden" name="selectedIds" id="selectedIds" value="">
                   <div type="button" onclick="cancelDelete()" class="text-gray-400 absolute cursor-pointer top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="deleteModal">
@@ -270,6 +351,8 @@
     <!-- <script src="../controllers/accountController.js" type="text/javascript"></script> -->
     <script src="/js/redirect.js" type="text/javascript"></script>
     <script src="/js/asset.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </body>
 </html>
 

@@ -1,11 +1,10 @@
-// ẩn hiện info user
-document.getElementById('dropdownNavbarLink').addEventListener('click', function() {
-    document.getElementById('dropdownNavbar').classList.toggle('hidden');
-  });
+
+
 //ẩn hiện giỏ hàng
-document.getElementById('cart-icon').addEventListener('click', function() {
-    document.getElementById('cart-data').classList.toggle('hidden');
-  });
+function toggleCart(){
+  document.getElementById('cart-data').classList.toggle('hidden');
+}
+
 function formatPrice(price) {
     return price.toLocaleString('en-US'); // Định dạng theo định dạng của Hoa Kỳ
 }

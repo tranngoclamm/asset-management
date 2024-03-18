@@ -1,24 +1,9 @@
 const path = require('path');
 const app = require('../../app1');
 const connection = require('./db');
+const { query } = require('express');
 
-// function getAssets(request, response) {
-//     // response.render('../views/asset-management');
-//     connection.query('SELECT id, asset_name, category, status, price, purchase_date, warranty_period, depreciation, description FROM assets', (err, results) => {
-//       if (err) throw err;
-//       response.render('../views/asset-management', { results });
-//     });
-
-//     };
-
-    // function getAccounts(request, response) {
-    //   // response.render('../views/asset-management');
-    //     connection.query('SELECT id, username, password, full_name, email, phone_number, birth_date, role, address FROM accounts', (err, results) => {
-    //     if (err) throw err;
-    //     response.render('../views/main', { results });
-    //   });
-    
-    //   };
+// render thông tin tài sản từ sql xuống giao diện
     function getAssets(request, response) {
       let searchQuery = request.body.searchQuery; // Lấy tham số tìm kiếm từ request query
       let sortBy = request.body.sortBy; // Lấy tham số sắp xếp từ request query
@@ -47,17 +32,20 @@ const connection = require('./db');
   
   
   
-    
+    // thêm tài sản 
     function addAsset(request, response) {
-        const user_id = request.session.user_id;
-        console.log(user_id)
-        const {id, asset_name,	category,status,	price, purchase_date, warranty_period, depreciation,	description } = request.body;
-        const asset = {asset_name,	category,status,	price, purchase_date, warranty_period, depreciation,	description, user_id };
-      connection.query('INSERT INTO assets SET ?', asset, function(error, results, fields) {
+      const user_id = request.session.user_id;
+      const { asset_name, category, status, price, purchase_date, warranty_period, depreciation, description } = request.body.asset;
+      const asset = { asset_name, category, status, price, purchase_date, warranty_period, depreciation, description, user_id };
+      const sql = 'INSERT INTO assets SET ?';
+      const query = connection.format(sql, asset);
+      connection.query(query, function (error, results, fields) {
         if (error) throw error;
+        const insertedId = results.insertId; // Lấy ID của tài sản đã chèn
+        console.log(insertedId)
+        console.log(query);
+        response.json({ asset_id: insertedId }); // Gửi ID của tài sản về trong phản hồi JSON
       });
-      response.redirect('/asset-management');
-      // ...
     }
 
     function deleteAssets(request, response) {
@@ -65,12 +53,21 @@ const connection = require('./db');
       // const selectedIds = request.body.selectedIds.split(',');
       const selectedIds = request.body.selectedIds.split(',');
   
+        // vì rảng buộc khóa ngoại nên phải xóa hàng cart trước 
+      const deleteCartsQuery = 'DELETE FROM carts WHERE asset_id IN (?)';
+      connection.query(deleteCartsQuery, [selectedIds], function(error, results, fields) {
+        if (error) {
+          throw error;
+        }
+
       // Xóa các tài sản từ cơ sở dữ liệu sử dụng các ID này
       const queryString = 'DELETE FROM assets WHERE id IN (?) AND user_id = ?';
       connection.query(queryString, [selectedIds, request.session.user_id], function(error, results, fields) {
            if (error) throw error;
-      });
-      response.redirect('/asset-management');
+           response.redirect('/asset-management');
+      }
+      );
+    });
    }
     
     
@@ -80,9 +77,42 @@ const connection = require('./db');
     const asset = { asset_name, category, status, price, purchase_date, warranty_period, depreciation, description };
     connection.query('UPDATE assets SET ? WHERE user_id = ? AND id = ?', [asset, user_id, id], function (error, results, fields) {
         if (error) throw error;
-
         response.redirect('/asset-management');
     });
+}
+
+function checkingAssetInPending(request, response){
+    const assetId = request.query.id;
+    // Kiểm tra dữ liệu trong bảng pending_assets
+    connection.query('SELECT COUNT(*) AS count FROM pending_assets WHERE id = ?', [assetId], (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+      } else {
+        const count = results[0].count;
+        const isDuplicate = count > 0;
+  
+        // Trả về kết quả
+        response.json({ isDuplicate });
+      }
+    });
+}
+
+function checkingAssetInMarket(request, response){
+  const assetId = request.query.id;
+  // Kiểm tra dữ liệu trong bảng market_assets
+  connection.query('SELECT COUNT(*) AS count FROM market_assets WHERE id = ?', [assetId], (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    } else {
+      const count = results[0].count;
+      const isDuplicate = count > 0;
+
+      // Trả về kết quả
+      response.json({ isDuplicate });
+    }
+  });
 }
 
 function sellAsset(request, response) {
@@ -96,17 +126,9 @@ function sellAsset(request, response) {
   // ...
   }
 
-    function deleteAccount(request, response) {
-      const accountId = request.query.id;
-    
-      connection.query('DELETE FROM accounts WHERE id = ?', accountId, function(error, results, fields) {
-        if (error) throw error;
-        response.redirect('/account-management');
-      });
-    }
     
     module.exports = {
-        getAssets,addAsset, deleteAssets, updateAsset,sellAsset
+        getAssets,addAsset, deleteAssets, updateAsset,sellAsset, checkingAssetInPending,checkingAssetInMarket
       };
 
       

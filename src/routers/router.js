@@ -7,15 +7,9 @@ const assetController = require('../controllers/assetController');
 const expenseController = require('../controllers/expenseController');
 const marketMangementController = require('../controllers/marketMangementController');
 const marketController = require('../controllers/marketController');
+const imageController = require('../controllers/imageController');
 const checkRole = require('../controllers/checkRole');
-// const connection = require('../controllers/db');
-// const app = express();
-
-
-// Cấu hình EJS
-// router.engine('ejs', require('ejs').__express);
-// app.set('view engine', 'ejs');
-// app.set('views', path.join(__dirname, 'views/'));
+const {uploadMulter} = require('../controllers/multer');
 
 
 //login
@@ -23,11 +17,18 @@ router.get('/', function(request, response) {
   response.sendFile(path.join(__dirname, '../views/login.html'));
 });
 
+//logout
+router.get('/logout', loginController.logout);
+
 //register
 router.get('/register', function(request, response) {
   response.sendFile(path.join(__dirname, '../views/register.html'));
 });
 router.post('/register', accountController.addAccount);
+
+//upload ảnh với multer
+router.post('/upload-image/product', uploadMulter.single('img_product'), imageController.upload);
+
 
 //changepassword
 router.get('/changepassword', function(request, response) {
@@ -37,35 +38,24 @@ router.get('/forgotpassword', function(request, response) {
   response.sendFile(path.join(__dirname, '../views/forgotpassword.html'));
 });
 
-// router.get('/account-management', function(request, response) {
-//   response.sendFile(path.join(__dirname, '../views/main.html'));
-// });
 
 
 // home
 router.post('/auth', loginController.authenticateUser);
 router.get('/home', loginController.home);
 
-// account-management
-// app.set('view engine', 'ejs');
-// app.set('views', path.join(__dirname, '../views/'));
-
-// app.get('/account-management', (req, res) => {
-//   console.log("íadfn");
-//   connection.query('SELECT id, username, full_name, email, phone_number, birth_date, role, address FROM accounts', (err, results) => {
-//     if (err) throw err;
-//     res.render('main', { results });
-//   });
-// });
-
-//account-management
-
 router.get('/account-management', checkRole('Admin'), accountController.getAccounts);
 router.post('/account-management', checkRole('Admin'), accountController.getAccounts);
 router.post('/account-management/add', accountController.addAccount);
 router.post('/account-management/update', accountController.updateAccount);
 router.get('/account-management/delete', accountController.deleteAccount);
-router.get('/account-management/reset-password/:id', accountController.resetPassword);
+
+router.post('/forgot', accountController.resetPassword);
+
+
+
+  
+  
 
 //market-management
 //duyệt tài sản
@@ -89,7 +79,10 @@ router.post('/asset-management', checkRole(['KDV', 'Admin', 'User']), assetContr
 router.post('/asset-management/add', assetController.addAsset);
 router.post('/asset-management/delete', assetController.deleteAssets);
 router.post('/asset-management/update', assetController.updateAsset);
+router.post('/asset-management/check-pending-assets', assetController.checkingAssetInPending);
+router.post('/asset-management/check-market-assets', assetController.checkingAssetInMarket);
 router.post('/asset-management/sell', assetController.sellAsset);
+
 
 
 
@@ -97,5 +90,11 @@ router.post('/asset-management/sell', assetController.sellAsset);
 router.get('/expense-planner', expenseController.getExpense);
 router.post('/expense-planner/add', expenseController.addExpenseItem);
 router.post('/expense-planner/edit', expenseController.editExpenseItem);
-
+router.post('/expense-planner/delete', expenseController.deleteExpenseItem);
+router.post('/expense-planner/change-total-expense', expenseController.changeTotalExpense);
 module.exports = router;
+
+
+
+// Định nghĩa route xử lý yêu cầu POST tải lên tệp ảnh
+router.post('/upload-image', imageController.upload);

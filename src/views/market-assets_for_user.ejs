@@ -19,7 +19,7 @@
 </head>
 <body style="height: 100vh">
     <header class="flex">
-        <div class="w-2/12 bg-blue-500 h-11">
+        <div class="w-2/12 bg-blue-500 h-11" style="background-color: #3a82f8;">
         </div>
         <div class="w-10/12 relative">
             <div class="flex h-11 bg-blue-500 items-center">
@@ -58,34 +58,37 @@
         </div>
     </header>
     <container class="flex" style="height: 92vh">
-        <nav class="w-2/12 bg-gray-100 flex flex-col items-center">
-            <div class="w-3/4 h-52 mt-5">
-              <div class="h-5/6 w-full rounded border border-black">
-                <img src="images/avatars/test-avt.jpg" alt="">
+        <nav class="w-2/12 text-black font-sans border-r border-gray-400 bg-100 h-fulls relative  flex flex-col shadow-md items-center" style="color: #BBC0C4;background-color:#263755 ; background-image: url('images/nigh.jpg');background-size:cover; background-position: center;">
+            <!-- <div class="w-full h-52" style=" position: absolute;top: 0;  left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.01);"> -->
+            <div class="w-full h-40 relative border-b bg-gray-50 border-gray-600 bouder-double" style="background-color:#32373C ; background-image: url('images/night.jpg');background-size:cover; background-position: center;"> 
+              <div class="h-2/6 w-full p-8 pl-16 rounded-full  ">
+                <img class="rounded-full h-20 opacity-95 " src="images/avatars/test-avt.jpg" alt=""> 
               </div>
-              <button class="text-xs border border-black rounded-sm py-0.5 px-2">Đổi mật khẩu</button>
-              <button class="text-xs border border-black rounded-sm py-0.5 px-2">Đăng xuất</button>
+              <button class="text-xs absolute bottom-2.5 left-5  rounded-sm py-0.5 px-2">Đổi mật khẩu</button>
+              <button class="text-xs absolute bottom-2.5 left-28  rounded-sm py-0.5 px-1">Đăng xuất</button>
             </div>
-            <menu class="w-11/12">
-                <button onclick="redirectToAccountManagement()" class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded hover:bg-blue-500 dark:hover:bg-gray-700">
-                    <span class="hover:bg-gray-100 dark:hover:bg-gray-700">Quản lý tài khoản</span></button>
-                <button class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span>Quản lý chợ tài sản</span></button>
-                <div id="subMenu" class="hidden">
-                    <button>Xem tài sản đang bán</button>
-                    <button>Thống kê giao dịch</button>
-                </div>
-                <button class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span>Xem chợ tài sản</span></button>
-                <button class="flex items-center border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span">Quản lý tài sản</span>
-                </button>
-                <button onclick="redirectToExpensePlanner()" class="flex border border-black w-full py-1.5 pl-3 mt-1.5 text-left rounded">
-                    <span>Lập kế hoạch chi tiêu</span>
-                </button>
-            </menu>
-            <div class="w-full m-auto mb-0.5 ml-1">
-                <button class="border border-black rounded px-4" onclick="showNotification()">Thoát</button>
+            <div class="w-full mb-0.5 ml-1">
+                <menu class="h-64 flex-col flex pl-2.5 pr-3.5 rounded-lg items-center justify-evenly">
+                     <button onclick="redirectToAccountManagement()" class="flex items-center hover:bg-gray-600 dark:hover:bg-gray-700  hover:border-gray-600  w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <a class="h-full border-y-2 border-white">Quản lý tài khoản</a>
+                    </button>
+                    <button onclick="redirectToMarketManagement()" class="flex items-center dark:text-white hover:bg-gray-600 dark:hover:bg-gray-700  w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <a>Quản lý chợ tài sản</a>
+                    </button>
+                    <div id="subMenu" class="hidden">
+                        <button>Xem tài sản đang bán</button>
+                        <button>Thống kê giao dịch</button>
+                    </div> 
+                    <button onclick="redirectToMarket()" class="flex items-center   hover:bg-gray-600 dark:hover:bg-gray-700  w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <span>Xem chợ tài sản</span></button>
+                    <button onclick="redirectToAssetManagement()" class="flex items-center  hover:bg-gray-600 dark:hover:bg-gray-700    w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <span">Quản lý tài sản</span>
+                    </button>
+                    <button onclick="redirectToExpensePlanner()" class="flex  hover:bg-gray-600 dark:hover:bg-gray-700   w-full py-1.5 pl-3 mt-1.5 text-left rounded">
+                        <span>Lập kế hoạch chi tiêu</span>
+                    </button>
+                </menu>
+                <button class=" absolute bottom-1.5 -left-1.5 rounded px-4" onclick="logout()">Thoát</button>
             </div>
         </nav>
         <div class="bg-gray-300 w-10/12 h-full p-4 relative">
@@ -95,7 +98,7 @@
                         <div class="flex">
                             <form class="flex" action="/asset-management" method="post">
                                 <input type="text" name="sortOrder" class="hidden">
-                                <select name="sortBy" id="filter" data-dropdown-toggle="dropdownRadio" class=" inline-flex cursor-pointer items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-sm px-2 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+                                <select name="sortBy" id="filter" data-dropdown-toggle="dropdownRadio" class=" inline-flex cursor-pointer items-center text-gray-500 bg-white  border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-sm px-2 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
                                     <option value="" selected class="h-6 cursor-pointer text-gray-400 text-sm px-2 py-1.5">Mặc định</option>
                                     <option value="" class="h-6 cursor-pointer text-gray-400 text-sm px-2 py-1.5 rounded-md">Tên tài sản</option>
                                     <option value="" class="h-6 cursor-pointer text-gray-400 text-sm px-2 py-1.5 rounded-md">Thể loại</option>
@@ -123,7 +126,7 @@
                             <button type="button" id="deleteBtnSelect" onclick="alertDelete()" class="deleteBtnSelect absolute hidden top-12 right-0 font-medium rounded-lg text-sm me-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                                 <img class="w-7" src="images/icons/delete-all-4.svg" alt="">
                             </button>
-                            <button class="absolute top-1.5 right-0.5" id="cart-icon" data-dropdown-toggle="cart-data"">
+                            <button class="absolute top-1.5 right-0.5" id="cart-icon" data-dropdown-toggle="cart-data" onclick="toggleCart()">
                                 <img class="w-8 h-8" src="images/icons/cart-46.svg" alt="">
                             </button>
                         </div>
