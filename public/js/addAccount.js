@@ -16,6 +16,86 @@ let avatar = document.getElementById('avatarUrl');
 let add = true;
 const dropdownLink = document.getElementById('dropdownNavbarLink');
 const dropdownMenu = document.getElementById('dropdownNavbar');
+var rowsPerPage = 12;
+var totalRows = document.querySelectorAll(".searched").length;
+console.log(totalRows)
+
+//     // Tính toán số lượng trang
+//     var totalPages = Math.ceil(totalRows / rowsPerPage);
+
+//     // Trang hiện tại
+//     var currentPage = 1;
+// showPage(currentPage)
+
+// function showPage(pageNumber) {
+//   console.log(totalRows)
+//   var startIndex = (pageNumber - 1) * rowsPerPage;
+//   var endIndex = Math.min(startIndex + rowsPerPage, totalRows);
+
+//   // Ẩn tất cả các hàng
+//   var rows = document.querySelectorAll(".searched");
+//   rows.forEach(function(row) {
+//       row.style.display = "none";
+//   });
+
+//   // Hiển thị các hàng ứng với trang được chọn
+//   for (var i = startIndex; i < endIndex; i++) {
+//       rows[i].style.display = "";
+//   }
+
+//   // Hiển thị số trang hiện tại (nếu tồn tại)
+//   var currentPageSpan = document.querySelector("#paginationButtons .current-page");
+//   if (currentPageSpan) {
+//       currentPageSpan.textContent = pageNumber.toString();
+//   }
+// }
+
+// function prevPage() {
+//  totalRows = document.querySelectorAll(".searched");
+// console.log(totalRows)
+//   console.log(currentPage)
+// console.log(totalRows)
+
+//   if (currentPage > 1) {
+//       currentPage--;
+//       showPage(currentPage);
+//   }
+// }
+
+// // Hàm hiển thị trang tiếp theo
+// function nextPage() {
+// console.log(totalRows)
+
+//   console.log(currentPage)
+
+//   if (currentPage < totalPages) {
+//       currentPage++;
+//       showPage(currentPage);
+//   }
+// }
+// function showPage(pageNumber) {
+//   var startIndex = (pageNumber - 1) * rowsPerPage;
+//   var endIndex = Math.min(startIndex + rowsPerPage, totalRows);
+
+//   // Ẩn tất cả các hàng
+//   var rows = document.querySelectorAll("#data_default tbody tr");
+//   rows.forEach(function(row) {
+//       row.style.display = "none";
+//   });
+
+//   // Hiển thị các hàng ứng với trang được chọn
+//   for (var i = startIndex; i < endIndex; i++) {
+//       rows[i].style.display = "";
+//   }
+
+//   // Hiển thị số trang hiện tại
+//   var currentPageSpan = document.createElement("span");
+//   currentPageSpan.textContent = pageNumber;
+//   currentPageSpan.classList.add("border", "py-0.5", "px-1", "current-page");
+//   var paginationButtons = document.getElementById("paginationButtons");
+//   paginationButtons.replaceChild(currentPageSpan, paginationButtons.querySelector(".current-page"));
+// }
+
 
 
 function getdata(resultsData) {
@@ -31,32 +111,66 @@ dropdownLink.addEventListener('click', function() {
 function cancelDelete(){
   document.getElementById('DeleteForm').style.display = 'none';
 }
+
+
+
 function openAddAccount(){
-  accountForm.style.display = 'flex';
-  document.getElementById('fileInput').addEventListener('change', function(event) {
-    // Lấy file được chọn
-    const file = event.target.files[0];
-    console.log("Đường dẫn:", file);
 
-    // Tạo đường dẫn đến ảnh
-    const imageUrl = URL.createObjectURL(file);
+  accountWrapper.style.display = 'block';
+  document.getElementById('image-preview').value = 0;
+    document.getElementById('img_product').setAttribute('onchange',' handleImageSelectionInAdd(event)'); 
+    document.getElementById('submitBtn').style.display='none';
+    document.getElementById('addUserBtn').style.display='block';
+}
 
-    // Gán ảnh vào div image-preview
-    const imagePreview = document.getElementById('image-preview');
-    imagePreview.style.backgroundImage = `url(${imageUrl})`;
+function handleImageSelectionInAdd(event){
+  document.getElementById('id_avtforImg').value=document.getElementById('idUser').value;
+  console.log(document.getElementById('id_avtforImg').value)
+  const file = event.target.files[0];
+  const reader = new FileReader();
 
-    // Kiểm tra xem có tệp nào được chọn không
-        // Tạo một đường dẫn URL tạm thời đến tệp đã chọn
-        const fileUrl = URL.createObjectURL(file);
-        // avatar.value = imageUrl;
-        // Sử dụng đường dẫn URL tạm thời cho mục đích của bạn
-        // console.log("Đường dẫn của tệp đã chọn:", fileUrl);
-        console.log("Đường dẫn của tệp đã chọn:", fileUrl);
-  });
+  reader.onload = function (e) {
+    const imageUrl = e.target.result;
+    const backgroundContainer = document.getElementById('image-preview');
+    backgroundContainer.style.backgroundImage = `url(${imageUrl})`;
+  };
+
+  reader.readAsDataURL(file);
+}
+async function addUser(){
+  const account = {};
+  account.username = document.getElementById('username').value;
+  account.password = document.getElementById('password').value;
+  account.full_name = document.getElementById('full_name').value;
+  account.email = document.getElementById('email').value;
+  account.phone_number =document.getElementById('phone_number').value;
+  account.birth_date = document.getElementById('birth_date').value;
+  account.role =document.getElementById('role').value;
+  account.address = document.getElementById('address').value;
+  console.log("account: " + account)
+  try {
+    const response = await axios.post('/account-management/add', { account });
+    const id = response.data.id;
+    console.log(response)
+    if (response.status == 400) {
+      // Nếu thành công, hiển thị thông báo thành công
+      alert('Tài khoản đã có người sử dụng!')
+      console.log("lỗi 400")
+    }
+    document.getElementById('id_avtforImg').value = id; // gán id vào form up ảnh
+    setTimeout(uploadImage, 20); // up ảnh
+    setTimeout(close, 40); // up ảnh
+
+    document.getElementById('accountForm').style.display = 'none'; // ẩn giao diện
+  // document.getElementById('submit_img').click();
+
+  } catch (err) {
+    alert('Tài khoản đã có người sử dụng!')
+  }
 }
 
 closeOverlayButton.addEventListener('click', function () {
-  accountForm.style.display = 'none';
+  accountWrapper.style.display = 'none';
 });
 
 function uploadImage(){
@@ -94,7 +208,7 @@ function uploadImage(){
 }
 
 function openEditAccount(element){
-    accountForm.style.display = 'flex';
+    accountWrapper.style.display = 'block';
     document.getElementById('submitBtn').innerText = 'Chỉnh sửa';
     document.getElementById('submitBtn').style.backgroundColor = 'green'; 
     const accountId = element.dataset.accountId;
@@ -137,16 +251,28 @@ function deleteAccount(element){
 
   }
 
-function resetAccount(element){
-    console.log(element);
+function resetAccount(username){
+  axios.post('/forgot',{username: username})
+  .then(response => {
+    handleResponse(response);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    // Xử lý lỗi khi không kết nối được server
+    const message = document.querySelector('p');
+    message.textContent = 'Đã xảy ra lỗi khi kết nối đến server.';
+    message.classList.remove('success');
+    message.classList.add('error');
+  });
   }
 
 function submitBtn(){
     if(add==true){
-        console.log("thêm tài khoản");
+      accountForm.setAttribute('action', '/account-management/add');
+      
     }
     else {
-        console.log("chỉnh sửa");
+      accountForm.setAttribute('action', '/account-management/edit');
     }
 
 }
@@ -158,10 +284,7 @@ function searchData() {
   
   // Lấy giá trị từ ô select sắp xếp
   var sortBy = document.getElementById("sortBy").value;
-  console.log(keyword)
-  console.log(sortBy)
-  var a = 
-  console.log(a)
+  
   // Lọc và sắp xếp dữ liệu theo từ khóa tìm kiếm và cột sắp xếp
   var filteredData = results.filter(function(item) {
     return item.username.toLowerCase().includes(keyword);
@@ -171,38 +294,12 @@ function searchData() {
   
   // Ẩn bảng data_defaul
   document.getElementById("data_defaul").style.display = "none";
+  
   // Hiển thị dữ liệu mới trong bảng new_data
   displayData(filteredData);
+  console.log(filteredData)
 }
 
-// function displayData(data) {
-//   var tableBody = document.getElementById("new_data");
-
-//   // Xóa dữ liệu cũ trong bảng new_data
-//   tableBody.innerHTML = "";
-
-//   // Thêm dữ liệu mới vào bảng new_data
-//   data.forEach(function(item) {
-//     var row = document.createElement("tr");
-//     row.innerHTML = `
-//       <td>${item.id}</td>
-//       <td class="pl-3">${item.username}</td>
-//       <td class="hidden">${item.password}</td>
-//       <td>${item.full_name}</td>
-//       <td>${item.email}</td>
-//       <td>${item.phone_number}</td>
-//       <td>${formatDate(item.birth_date)}</td>
-//       <td>${item.role}</td>
-//       <td class="overflow-hidden whitespace-nowrap overflow-ellipsis" style="max-width: 160px;">${item.address}</td>
-//       <td><div onclick="openEditAccount(this)" data-account-id="${item.id}" class="cursor-pointer"><img class="w-6 ml-2" src="images/icons/edit.svg" alt=""></div></td>
-//       <td><div onclick="deleteAccount(this)" data-account-id="${item.id}" class="cursor-pointer"><img class="w-6 ml-2" src="images/icons/user-minus.svg" alt=""></div></td>
-//       <td><div onclick="resetAccount(this)" data-account-id="${item.id}" class="cursor-pointer"><img class="w-6 ml-2" src="images/icons/password-reset-icon.png" alt=""></div></td>
-//     `;
-//     tableBody.appendChild(row);
-//   });
-// }
-
-// Hàm sắp xếp theo cột
 function sortTable(columnIndex) {
   const table = document.getElementById('data_defaul');
   const rows = Array.from(table.getElementsByTagName('tr'));
@@ -213,19 +310,16 @@ function sortTable(columnIndex) {
   dataRows.sort((a, b) => {
     const cellA = a.getElementsByTagName('td')[columnIndex].innerText || a.getElementsByTagName('td')[columnIndex].textContent;
     const cellB = b.getElementsByTagName('td')[columnIndex].innerText || b.getElementsByTagName('td')[columnIndex].textContent;
-    if (columnIndex === 0 && cellA === '0') {
-      // Sắp xếp cột đầu tiên theo thứ tự id tăng dần khi giá trị là 0
-      const idA = parseInt(a.getElementsByTagName('td')[0].innerText);
-      const idB = parseInt(b.getElementsByTagName('td')[0].innerText);
+    if (columnIndex === 0) {
+      // Sắp xếp cột đầu tiên theo thứ tự ID tăng dần khi giá trị là 0
+      const idA = parseInt(cellA, 10);
+      const idB = parseInt(cellB, 10);
       return idA - idB;
-      console.log("0")
-    } 
-    else if (columnIndex === 3) {
-      // Sắp xếp theo tên người dùng
-      const nameA = cellA.split(' ').pop();
-      const nameB = cellB.split(' ').pop();
-      return nameA.localeCompare(nameB, 'en', { sensitivity: 'base' });
-      console.log(3)
+    } else if (columnIndex === 1 || columnIndex === 3) {
+      // Sắp xếp theo tên tài khoản hoặc họ tên
+      const valueA = cellA.trim();
+      const valueB = cellB.trim();
+      return valueA.localeCompare(valueB, 'vi', { sensitivity: 'base' });
     } else if (columnIndex === 7) {
       // Sắp xếp theo quyền
       return cellA.localeCompare(cellB, 'en', { sensitivity: 'base' });
@@ -238,10 +332,18 @@ function sortTable(columnIndex) {
   // Thêm lại hàng đầu tiên (cột tiêu đề) vào mảng đã sắp xếp
   const sortedRows = [rows[0], ...dataRows];
 
-  for (let i = 0; i < sortedRows.length; i++) {
-    table.appendChild(sortedRows[i]);
+  // Xóa tất cả các hàng hiện tại khỏi bảng
+  while (table.firstChild) {
+    table.removeChild(table.firstChild);
   }
+
+  // Thêm lại các hàng đã sắp xếp vào bảng
+  sortedRows.forEach(row => {
+    table.appendChild(row);
+  });
 }
+ 
+
 
 // tìm kiếm
 function searchAccounts() {
@@ -266,9 +368,59 @@ function searchAccounts() {
 
     if (found) {
       rows[i].style.display = '';
+      rows[i].classList.add('searched')
+
     } else {
       rows[i].style.display = 'none';
+      rows[i].classList.remove('searched')
+
     }
+  }
+}
+
+// hiển thị ảnh ở preview
+function handleImageSelection(event) {
+  document.getElementById('id_avtforImg').value=document.getElementById('idUser').value;
+  console.log(document.getElementById('id_avtforImg').value)
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    const imageUrl = e.target.result;
+    const backgroundContainer = document.getElementById('image-preview');
+    backgroundContainer.style.backgroundImage = `url(${imageUrl})`;
+  };
+  document.getElementById('submit_img').click()
+
+  reader.readAsDataURL(file);
+  console.log('hi12')
+
+}
+
+// gửi ảnh lên server
+function uploadImage() {
+  console.log("đã chuanrabi up")
+  try {
+    const form = document.getElementById('img-upload-form');
+    const formData = new FormData(form);
+    
+    const response =  fetch('/upload-image/product', {
+      method: 'POST',
+      body: formData,
+    });
+    
+    if (response.ok) {
+      
+      // Tiếp tục xử lý logic khác ở đây sau khi ảnh đã được upload thành công
+      
+      // Chuyển hướng trang
+      console.log('up xong')
+      window.location.href = '/account-management';
+    } else {
+      throw new Error('Upload image failed');
+    }
+  } catch (error) {
+    console.error('Upload image failed:', error);
   }
 }
 

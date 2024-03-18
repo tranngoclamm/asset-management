@@ -148,7 +148,7 @@ function openAddAsset(){ // hiện giao diện thêm tài sản
 async function submitEvent(type) {
   var warranty_period = document.getElementById('warranty_period');
   warranty_period.value = warranty_period.value + " " + document.getElementById('warranty_type').value ;
-  if (type === "edit" || type ==="sell") {
+  if (type === "edit") {
     document.getElementById('hiddenConfirmBtn').click(); // Gửi form đến /asset-management/edit
     document.getElementById('AssetForm').style.display = 'none'; // Ẩn giao diện
     // window.location.href = '/asset-management';
@@ -354,7 +354,7 @@ function openEditAsset(element){
     document.getElementById('chooseImageSpan').style.display ='none';
     document.getElementById('image-preview').style.backgroundImage = `url(/images/products/${assetId}.jpg)`;
 
-    // AssetAction.setAttribute('action', '/asset-management/update');
+    AssetAction.setAttribute('action', '/asset-management/update');
 
   }
 

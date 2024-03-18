@@ -98,7 +98,7 @@
                         <div class="flex">
                             <form class="flex" action="/asset-management" method="post">
                                 <input type="text" name="sortOrder" class="hidden">
-                                <select name="sortBy" id="filter" data-dropdown-toggle="dropdownRadio" class=" inline-flex cursor-pointer items-center text-gray-500 bg-white  border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-sm px-2 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+                                <select name="sortBy" id="filter" data-dropdown-toggle="dropdownRadio" style="border: 1px solid #caced2" class=" inline-flex cursor-pointer ml-2 items-center text-gray-500 bg-white  border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-1 focus:ring-gray-100 font-medium rounded-lg text-sm px-2 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
                                     <option value="" selected class="h-6 cursor-pointer text-gray-400 text-sm px-2 py-1.5">Mặc định</option>
                                     <option value="" class="h-6 cursor-pointer text-gray-400 text-sm px-2 py-1.5 rounded-md">Tên tài sản</option>
                                     <option value="" class="h-6 cursor-pointer text-gray-400 text-sm px-2 py-1.5 rounded-md">Thể loại</option>
@@ -134,11 +134,11 @@
                     </nav>
 
                     <tbody class="max-h-72 ">
-                        <div class="grid grid-cols-6 gap-1 px-3" >
+                        <div class="grid grid-cols-6 gap-1 px-3" id="assetList" >
                             <%  results.systemAssets.forEach((asset, index) => { %>
-                                <div id="asset_<%= asset.asset_id %>" class="bg-white relative asset_item dark:bg-gray-800 dark:border-gray-700 p-2">
-                                    <% if (asset.status !== 'Cũ') { %>
-                                        <div onclick="filterByStatus('<%= asset.status %>')" class="top-1 left-1 z-10 absolute flex flex-col mt-2" aria-hidden="true">
+                                <div id="asset_<%= asset.asset_id %>" class="bg-white asset_item relative asset_item dark:bg-gray-800 dark:border-gray-700 p-2">
+                                    <% if (asset.status == 'Mới') { %>
+                                        <div onclick="filterByStatus('<%= asset.status %>')" class="top-1 cursor-pointer left-1 z-10 absolute flex flex-col mt-2" aria-hidden="true">
                                             <div class="asset_status relative bg-blue-400 py-0 rounded-r-sm pl-1 pr-2.5 text-white text-xs  bg-contain bg-no-repeat" style=" height: 18px;">
                                                 <%= asset.status %>
                                             </div>
@@ -155,10 +155,12 @@
                                         <div class="asset_id hidden"> <%= asset.asset_id %> </div>
                                         <img onclick="addAssetToCart('<%= JSON.stringify(asset) %>','<%= formattedDate %>')" data-value="'<%= asset.asset_id %>'" class="item_<%= asset.asset_id %>_market bg-contain h-40 w-full" src="images/products/<%= index %>.jpg" alt="">
                                         <input onclick="chooseAsset()" type="checkbox" class="absolute choose_asset hidden top-0 right-0 border-gray-200 opacity-90 w-3.5 h-3.5">
-                                        <div onclick="filterByCategory('<%= asset.category %>')" class="bottom-0 left-0 z-10 absolute shopee_itemcard__discount_tag_container bg-shopee-yellow rounded-bl-sm">
-                                            <span aria-label="promotion"></span>
-                                            <p onclick="filterByCategory('<%= asset.category %>')" class="text-white asset_category bg-gray-500 opacity-70 px-2 rounded-tr-md py-0 text-xs leading-[0.875rem] font-medium">#<%= asset.category %></p>
-                                        </div>
+                                        <% if ( asset.category != null) { %>
+                                            <div onclick="filterByCategory('<%= asset.category %>')" class="bottom-0 left-0 z-10 absolute shopee_itemcard__discount_tag_container bg-shopee-yellow rounded-bl-sm">
+                                                <span aria-label="promotion"></span>
+                                                <p onclick="filterByCategory('<%= asset.category %>')" class="text-white asset_category bg-gray-500 opacity-70 px-2 rounded-tr-md py-0 text-xs leading-[0.875rem] font-medium">#<%= asset.category %></p>
+                                            </div>
+                                            <% } %>
                                     </div>
                                     <div class="relative border p-2" style="max-width: 100%; height: 100px;">
                                         <div class="mb-2 asset_name overflow-hidden overflow-ellipsis text-sm break-words text-[0.875rem] leading-5" style="margin-bottom: 0.25rem; max-height: 62px;line-clamp: 2; -webkit-line-clamp: 2;">

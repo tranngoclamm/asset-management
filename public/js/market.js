@@ -83,7 +83,10 @@ function hiddenAssetDetail(){
 
 //hiện chi tiết tài sản trong chợ tài sản 
 function openAssetDetail(assetJSON, date) {
-    var asset = JSON.parse(assetJSON);
+  var cleanJSON = assetJSON.replace(/[\u0000-\u001F\u007F-\u009F]/g, ' '); // Loại bỏ các ký tự không hợp lệ
+  console.log(cleanJSON);
+  var asset = JSON.parse(cleanJSON);
+    console.log(asset)
     document.getElementById('chooseAssetId').value = asset.asset_id;
     document.getElementById('AssetDetail').style.display = 'block';
     document.getElementById('name_detail').innerHTML = asset.asset_name;
@@ -98,15 +101,23 @@ function openAssetDetail(assetJSON, date) {
     document.getElementById('username').innerHTML = "@" + asset.username;
     document.getElementById('price_detail').dataset.value = asset.price;
     document.getElementById('price_detail').innerHTML = formatPrice(asset.price) + 'đ';
-    // if(typeof asset.purchase_date == 'undefined' || asset.purchase_date == 0){
-    //     document.getElementById('date_detail').innerHTML = "";
-    // } else(
-        // )
-    // const parts = asset.purchase_date.split('/');
-    // const formattedDate = `${parts[2].trim()}-${parts[1].trim().padStart(2, '0')}-${parts[0].trim().padStart(2, '0')}`;
-    // date.value = formattedDate;
-    document.getElementById('date_detail').innerHTML = date;
-    document.getElementById('warranty_detail').innerHTML = asset.warranty_period;
+    if(typeof asset.purchase_date == 'undefined' || asset.purchase_date == 0 || asset.purchase_date == '0000-00-00'){
+        document.getElementById('date_detail').innerHTML = "";
+    } else{
+      const dateObject = new Date(asset.purchase_date);
+        const year = dateObject.getFullYear();
+        const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+        const day = String(dateObject.getDate()).padStart(2, '0');
+        const formattedDate = `${day}/${month}/${year}`;
+        document.getElementById('date_detail').innerHTML = formattedDate;
+
+    }
+    if(asset.warranty_period == 'NaN '){
+      document.getElementById('warranty_detail').innerHTML = '';
+    } else{
+      document.getElementById('warranty_detail').innerHTML = asset.warranty_period;
+
+    }
     document.getElementById('depreciation_detail').innerHTML = asset.depreciation + '% / năm';
     document.getElementById('description_detail').innerHTML = asset.description;
     // Tiếp tục xử lý tài sản theo nhu cầu của bạn

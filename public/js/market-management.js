@@ -233,6 +233,7 @@ function openEditAsset(element){
   // duyệt đơn tài sản
   function acceptAsset(asset_id){
     document.getElementById('asset_acp_list').value = asset_id;
+    console.log(asset_id)
     document.getElementById('submitAccept').click();
   }
 

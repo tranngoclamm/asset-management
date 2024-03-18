@@ -5,7 +5,6 @@
     <meta http-equiv="Content-Language" content="vi">
     <link href="/css/tailwind.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
     <style>
 
         .highlighted {
@@ -24,9 +23,8 @@
                 </button>
                 <h2 class="text-white font-sans font-medium ml-2">QUẢN LÝ TÀI KHOẢN</h2>
                 <div class="ml-auto flex items-center">
-                    <!-- <span class="text-xs text-white mr-1">Nguyễn Phương Hoa</span> -->
                     <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between text-xs text-white mr-1">
-                        <p class="mr-1 font-medium">Nguyễn Phương Hoa</p> 
+                        <p class="mr-1 font-medium">Nguyễn Như Hoa</p> 
                         <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg>
                     </button>
                     <button>
@@ -87,14 +85,16 @@
                 <button class=" absolute bottom-1.5 -left-1.5 rounded px-4" onclick="logout()">Thoát</button>
             </div>
         </nav>
+        
         <div class="bg-gray-300 w-10/12 h-full p-5 relative">
+            <div class="w-10 h-10 bg-white absolute right-5 top-5"></div>
             <main class="flex-col  w-full h-full">
-                <form class="pl-3 h-full pr-2 text-sm bg-white overflow-scroll">
-                    <div class="flex mt-2 text-sm bg-white">
-                        <div class="flex p-1  disabled pointer-events-none"><img src="images/icons/filter.svg" alt=""><p>Sắp xếp theo</p></div>
+                <div class="pl-3 h-full pr-2 text-sm bg-white overflow-scroll pb-4">
+                    <div class="flex mt-5 text-sm bg-white">
+                        <div class="flex p-1  disabled b pointer-events-none border rounded-md"><img src="images/icons/filter.svg" alt=""><p>Sắp xếp theo</p></div>
                         <Select id="sortBy" class=" outline-none rounded cursor-pointer text-left" style="direction: rtl;padding-left: 5px;" onchange="sortTable(value)">
                             <option value="0">Mặc định</option>
-                            <option value="3">Tên</option>
+                            <option value="1">Tên tài khoản</option>
                             <option value="7">Nhóm quyền</option>
                         </Select>
                         <input id="searchInput" class="border outline-none rounded pl-3 pr-16 ml-40" type="text" placeholder="Nhập từ khóa tìm kiếm">
@@ -109,27 +109,20 @@
                         </button>
                     </div>
     
-                    <div class="w-full flex mt-3 mb-2 justify-center text-sm bg-white">
-                        <button class="border py-0.5 px-1"> << </button>
-                        <span class="border py-0.5 px-1">1</span>
-                        <button class="border py-0.5 px-1"> >> </button>
-                    </div>
-                    <form action="/account-management" method="post">
+                    <form class="mt-6" action="/account-management" method="post">
                         <!-- dữ liệu render từ sql mặc định khi vào trang -->
-                        <table id="data_defaul">
-                            <tr style="font-weight: bold;">
+                        <table class="" id="data_defaul">
+                            <div class="h-10 absolute right-0 top-0"></div>
+                            <tr class="sticky top-0 bg-white h-10" style="font-weight: bold; width: 89vw;">
                               <td>ID</td>
                               <td class="pl-2 whitespace-nowrap" style="min-width: 90px;">Tên tài khoản</td>
                               <td class="whitespace-nowrap" style="display: none;">Mật khẩu</td>
                               <td class="pl-8" style="min-width: 120px;">Họ tên</td>
-                              <td class="flex justify-center" style="min-width: 165px;">Email</td>
+                              <td class="pl-14" style="min-width: 165px;">Email</td>
                               <td class="pl-2 whitespace-nowrap" style="min-width: 85px;">Số điện thoại</td>
-                              <td class="pl-3 whitespace-nowrap" style="min-width: 65px;">Ngày sinh</td>
+                              <td class="pl-3 whitespace-nowrap" style="min-width: 45px;">Ngày sinh</td>
                               <td class="w-12 pl-3" style="min-width: 45px;">Quyền</td>
-                              <td class="flex pr-3 justify-center" style="min-width: 200px; white-space: nowrap; overflow: hidden;"><p>Địa chỉ</p></td>
-                              <td class="ml-3">&nbsp;</td>
-                              <td class="ml-3">&nbsp;</td>
-                              <td class="ml-3">&nbsp;</td>
+                              <td colspan="4" w-full" class=" justify-center -mr-6" style="min-width: 220px; padding-left: 70px; white-space: nowrap; overflow: hidden;"><p>Địa chỉ</p></div></td>
                             </tr>
 
 
@@ -141,7 +134,7 @@
                                   <td class="whitespace-nowrap overflow-hidden overflow-ellipsis pl-3" style="min-width: 114px;max-width: 137px;"><%= result.full_name %></td>
                                   <td class="whitespace-nowrap overflow-hidden overflow-ellipsis pl-3" style="min-width: 93px; max-width: 185px;"><%= result.email %></td>
                                   <td class="whitespace-nowrap overflow-hidden overflow-ellipsis pl-3" style="min-width: 77px;max-width: 90px;"><%= result.phone_number %></td>
-                                  <td class="whitespace-nowrap overflow-hidden overflow-ellipsis pl-3" style="min-width: 55px;">
+                                  <td class="whitespace-nowrap overflow-hidden overflow-ellipsis pl-3" style="min-width: 45px;max-width: 60px;">
                                     <% 
                                         const date = new Date(result.birth_date);
                                         const day = date.getDate();
@@ -155,7 +148,7 @@
                                   <td class="pl-3 overflow-hidden whitespace-nowrap overflow-ellipsis" style="max-width: 210px;min-width: 164px;"><%= result.address %></td>
                                   <td><div onclick="openEditAccount(this)" data-account-id="<%= result.id %>" class="cursor-pointer"><img class="w-6 ml-2" src="images/icons/edit.svg" alt=""></div></td>
                                   <td><div onclick="deleteAccount(this)" data-account-id="<%= result.id %>" class="cursor-pointer"><img class="w-6 ml-2" src="images/icons/user-minus.svg" alt=""></div></td>
-                                  <td><div onclick="resetAccount(this)" data-account-id="<%= result.id %>" class="cursor-pointer"><img class="w-6 ml-2" src="images/icons/password-reset-icon.png" alt=""></div></td>
+                                  <td><div onclick="resetAccount('<%= result.username %>')" data-account-id="<%= result.id %>" class="cursor-pointer"><img class="w-6 ml-2" src="images/icons/password-reset-icon.png" alt=""></div></td>
 
                                 </tr>
                               <% }) %>
@@ -165,7 +158,7 @@
 
                         </table>
                     </form>
-                </form>
+                </div>
             </main>
             <!-- <form class="hidden" action="/account-management/delete" method="post" enctype="multipart/form-data"">
                 <input type="hidden" name="id" id="idUserDeleted">
@@ -196,55 +189,73 @@
         </div>
 
 
-    </container>
-    
-    <form action="/account-management/add" method="post" id="accountForm" class="fixed hidden bg-gray-200 w-5/12 top-14 left-1/3 right-2/3 rounded-2xl z-10 justify-center items-center bg-white">
-        <div class="container">
-            <div class="w-full px-8 pb-6 pt-2 rounded-2xl shadow-2xl">
-                <div class="grid grid-cols-1 gap-2 md:grid-cols-2 mt-5">
-                    <div class="mt-1 pl-3 w-full flex-col items-center justify-center">
-                        <div name="avatar" id="image-preview" class="h-40 w-40 rounded-full bg-gray-100 bg-cover">
-                          <!-- image -->
-                        </div>
-                        <input type="hidden" name="id" id="idUser">
-                        <input type="hidden" name="avatarUrl" id="avtUrl">
-                        <input type="file" id="fileInput" name="avatarUrl" accept="image/jpg, image/jpeg, image/png" class=" hidden mt-2 ml-5 py-1 px-5  rounded-md  text-xs
-                        font-medium hover:bg-gray-50 focus:outline-none focus:ring-2
-                        focus:ring-offset-2 focus:ring-indigo-500">
 
-                        <button type="button" onclick="document.getElementById('fileInput').click()" class="mt-2 ml-5 py-1 px-5 border border-gray-300 rounded-md shadow-sm text-xs
-                        font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2
-                        focus:ring-offset-2 focus:ring-indigo-500">
-                        Upload Image
-                      </button>
+        <div id="accountWrapper"  class="absolute top-0 hidden pl-24 py-20 text-center bg-black bg-opacity-10 h-screen w-screen " >
+            <form id="accountForm" action="/account-management/add" method="post"  class=" flex mx-auto  right-2/3 rounded-2xl z-10 justify-center items-center bg-white" style="width: 38vw;">
+                <div class="container  ">
+                    <div class="w-full px-8 pb-6 rounded-2xl shadow-md">
+                        <div class="grid grid-cols-1 gap-2 md:grid-cols-2 mt-5">
+                            <div class="mt-1 ml-2 w-full ">
+                                <div name="avatar" id="image-preview" class="h-40 w-40 rounded-full bg-gray-100 bg-cover bg-center">
+                                  <!-- image -->
+                                </div>
+                                <input type="hidden" name="id" id="idUser">
+                                <input type="hidden" name="avatarUrl" id="avtUrl">
+                                <input type="file" id="fileInput" name="avatarUrl" accept="image/jpg, image/jpeg, image/png" class=" hidden mt-2 ml-5 py-1 px-5  rounded-md  text-xs
+                                font-medium hover:bg-gray-50 focus:outline-none focus:ring-2
+                                focus:ring-offset-2 focus:ring-indigo-500">
+        
+                                <button id="chooseImg" type="button" onclick="document.getElementById('img_product').click()" class="mt-2  py-1 px-5 -ml-10 border border-gray-300 rounded-md shadow-sm text-xs
+                                font-medium text-gray-700 hover:bg-gray-50 focus:outline-none 
+                                focus:ring-offset-2 focus:ring-indigo-500">
+                                Upload Image
+                              </button>
+                            </div>
+                            <div>
+                                <input name="username" id="username" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="text" placeholder="Tên tài khoản*" required />
+                                <input name="password" id="password" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="password" placeholder="Mật khẩu*" required />
+                                <input name="birth_date" id="birth_date" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="date" placeholder="Ngày sinh" />
+                                <input name="phone_number" id="phone_number" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="number" placeholder="Số điện thoại" />
+                            </div>
+                            <input name="full_name" id="full_name" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="text" placeholder="Họ tên*" required />
+                            <!-- <input name="role" id="role" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="text" placeholder="Quyền*" required /> -->
+                            <select name="role" id="role" class="text-gray-400 w-full bg-gray-100 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline">
+                                <option class="text-[#e0e0e0]" selected>User</option>
+                                <option>Admin</option>
+                                <option>KDV</option>
+                              </select>
+                        </div>
+                        <input name="email" id="email" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="email" placeholder="Email*" required />
+                        <textarea name="address" id="address" placeholder="Địa chỉ" class="w-full h-12 bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"></textarea>
+                        <div class="my-2 w-full flex items-center justify-between">
+                            <button id="submitBtn" type="submit" class="uppercase hidden w-5/12 text-xs font-bold tracking-wide bg-blue-900 text-gray-100 p-3 rounded-lg focus:outline-none focus:shadow-outline">Thêm</button>
+                            <div onclick="addUser()" id="addUserBtn" class="uppercase cursor-pointer w-5/12 text-xs font-bold tracking-wide bg-blue-900 text-gray-100 p-3 rounded-lg focus:outline-none focus:shadow-outline">Thêm</div>
+                            <div id="closeAddAccount" class="uppercase cursor-pointer flex justify-center text-center w-5/12 text-xs font-bold tracking-wide bg-red-600 text-gray-100 p-3 rounded-lg focus:outline-none focus:shadow-outline">Hủy</div>
+                        </div>
                     </div>
-                    <div>
-                        <input name="username" id="username" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="text" placeholder="Tên tài khoản*" required />
-                        <input name="password" id="password" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="password" placeholder="Mật khẩu*" required />
-                        <input name="birth_date" id="birth_date" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="date" placeholder="Ngày sinh" />
-                        <input name="phone_number" id="phone_number" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="number" placeholder="Số điện thoại" />
-                    </div>
-                    <input name="full_name" id="full_name" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="text" placeholder="Họ tên*" required />
-                    <!-- <input name="role" id="role" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="text" placeholder="Quyền*" required /> -->
-                    <select name="role" id="role" class="text-gray-400 w-full bg-gray-100 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline">
-                        <option class="text-[#e0e0e0]" selected>User</option>
-                        <option>Admin</option>
-                        <option>KDV</option>
-                      </select>
+            
                 </div>
-                <input name="email" id="email" class="w-full bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline" type="email" placeholder="Email*" required />
-                <textarea name="address" id="address" placeholder="Địa chỉ" class="w-full h-12 bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"></textarea>
-                <div class="my-2 w-full flex items-center justify-between">
-                    <button id="submitBtn" type="submit" class="uppercase w-5/12 text-xs font-bold tracking-wide bg-blue-900 text-gray-100 p-3 rounded-lg focus:outline-none focus:shadow-outline">Thêm</button>
-                    <div id="closeAddAccount" class="uppercase cursor-pointer flex justify-center text-center w-5/12 text-xs font-bold tracking-wide bg-red-600 text-gray-100 p-3 rounded-lg focus:outline-none focus:shadow-outline">Hủy</div>
-                </div>
-            </div>
+                      
+            </form>
     
         </div>
-              
-    </form>
+        <!-- // form gửi ảnh -->
+        <form id="img-upload-form" class=""hidden enctype="multipart/form-data">
+            <input type="file" name="img_product" id="img_product" onchange="handleImageSelection(event)">
+            <input type="text" name="id" id="id_avtforImg" value="0">
+            <input type="text" name="isAccount" value="1">
+            <button type="button" id="submit_img" onclick="uploadImage()">Upload Image</button>
+        </form>
+     
+
+    </container>
+
     <script src="/js/addAccount.js" type="text/javascript"></script>
     <script src="/js/redirect.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
     
 </body>
 </html>

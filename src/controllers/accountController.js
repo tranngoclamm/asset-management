@@ -42,28 +42,62 @@ const storage = multer.diskStorage({
 
 // getAccounts.js
 
+// function addAccount(request, response) {
+//   const {username, password, full_name, email, phone_number, birth_date, role, address } = request.body;
+//   const account = {username, password, full_name, email, phone_number, birth_date, role, address };
+//   // Check if username already exists
+//   connection.query('SELECT * FROM accounts WHERE username = ?', [username], function(error, results, fields) {
+//     if (error) {
+//         console.error('Lỗi khi kiểm tra tên tài khoản:', error);
+//         response.status(500).send('Đã có lỗi xảy ra khi đăng ký tài khoản.');
+//         return;
+//     }
+
+//     // If username already exists, send error response
+//     if (results.length > 0) {
+//         response.status(400).send('Tên tài khoản đã tồn tại. Vui lòng chọn một tên khác.');
+//         return;
+//     }
+//   connection.query('INSERT INTO accounts SET ?', account, function(error, results, fields) {
+//     if (error) throw error;
+//     response.status(200).send('Đăng ký thành công');
+//   });
+//   // ...
+// });
+// }
+
 function addAccount(request, response) {
-  const {username, password, full_name, email, phone_number, birth_date, role, address } = request.body;
-  const account = {username, password, full_name, email, phone_number, birth_date, role, address };
-  // Check if username already exists
-  connection.query('SELECT * FROM accounts WHERE username = ?', [username], function(error, results, fields) {
-    if (error) {
-        console.error('Lỗi khi kiểm tra tên tài khoản:', error);
-        response.status(500).send('Đã có lỗi xảy ra khi đăng ký tài khoản.');
-        return;
+  const { username, password, full_name, email, phone_number, birth_date, role, address } = request.body.account;
+
+  // Kiểm tra username đã tồn tại hay chưa
+  const checkUsernameQuery = 'SELECT COUNT(*) AS count FROM accounts WHERE username = ?';
+  const checkUsernameValues = [username];
+  const checkUsernameQueryFormatted = connection.format(checkUsernameQuery, checkUsernameValues);
+
+  connection.query(checkUsernameQueryFormatted, function (error, results, fields) {
+    if (error) throw error;
+
+    const existingUsernameCount = results[0].count;
+    if (existingUsernameCount > 0) {
+      // Username đã tồn tại, báo lỗi hoặc xử lý theo yêu cầu của bạn
+      response.status(400).send('Tài khoản đã có người sử dụng');
+      return;
     }
 
-    // If username already exists, send error response
-    if (results.length > 0) {
-        response.status(400).send('Tên tài khoản đã tồn tại. Vui lòng chọn một tên khác.');
-        return;
-    }
-  connection.query('INSERT INTO accounts SET ?', account, function(error, results, fields) {
-    if (error) throw error;
-    response.status(200).send('Đăng ký thành công');
+    // Username không tồn tại, thực hiện thêm tài khoản
+    const account = { username, password, full_name, email, phone_number, birth_date, role, address };
+    const sql = 'INSERT INTO accounts SET ?';
+    const query = connection.format(sql, account);
+
+    connection.query(query, function (error, results, fields) {
+      if (error) throw error;
+      
+      const insertedId = results.insertId; // Lấy ID của tài khoản đã chèn
+      console.log(insertedId);
+      console.log(query);
+      response.json({ id: insertedId }); // Gửi ID của tài khoản về trong phản hồi JSON
+    });
   });
-  // ...
-});
 }
 
 function updateAccount(request, response) {
