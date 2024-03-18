@@ -6,7 +6,7 @@ function authenticateUser(request, response) {
   let password = request.body.password;
 
   if (username && password) {
-    connection.query('SELECT id, role FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+    connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
       if (error) throw error;
       if (results.length > 0) {
         let user_id = results[0].id;
@@ -16,7 +16,8 @@ function authenticateUser(request, response) {
         request.session.username = user_id;
         request.session.id = user_id;
         request.session.user_id = user_id;
-        request.session.user = user;
+        request.session.user = results;
+        console.log(results)
         request.session.role = role; // Lưu role vào session
         response.redirect('/home');
       } else {
