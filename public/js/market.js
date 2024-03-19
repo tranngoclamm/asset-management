@@ -17,6 +17,20 @@ function formatDateFromXAMPP(xamppDate) {
     const year = parts[0];
     return `${day}/${month}/${year}`;
 }
+function updateCart(){
+  if(document.getElementById('total-form')){
+    const totalForm = document.getElementById('total-form');
+    const numberTrElements = document.getElementsByClassName('number_tr');
+    if (numberTrElements.length < 6){
+      // Thiết lập thuộc tính sticky cho total-form
+      totalForm.style.position = 'absolute';
+      console.log(numberTrElements)
+    } else{
+      totalForm.style.position = 'sticky';
+      console.log(numberTrElements)
+    }
+  }
+}
 
 updateCart();
 
@@ -81,13 +95,14 @@ function hiddenAssetDetail(){
     document.getElementById('AssetDetail').style.display = 'none';
 }
 
-//hiện chi tiết tài sản trong chợ tài sản 
+//hiện chi tiết tài sản trong chợ tài sản (admin)
 function openAssetDetail(assetJSON, date) {
   var cleanJSON = assetJSON.replace(/[\u0000-\u001F\u007F-\u009F]/g, ' '); // Loại bỏ các ký tự không hợp lệ
   console.log(cleanJSON);
   var asset = JSON.parse(cleanJSON);
     console.log(asset)
     document.getElementById('chooseAssetId').value = asset.asset_id;
+    document.getElementById('image-preview').style.backgroundImage = `url(/images/products/${asset.asset_id}.jpg)`;
     document.getElementById('AssetDetail').style.display = 'block';
     document.getElementById('name_detail').innerHTML = asset.asset_name;
     if(asset.status == "Mới"){
@@ -226,18 +241,7 @@ function openAssetDetail(assetJSON, date) {
 
   }
 // cập nhật giao diện giỏ hàng và tổng giá
-function updateCart(){
-  const totalForm = document.getElementById('total-form');
-  const numberTrElements = document.getElementsByClassName('number_tr');
-  if (numberTrElements.length < 6){
-    // Thiết lập thuộc tính sticky cho total-form
-    totalForm.style.position = 'absolute';
-    console.log(numberTrElements)
-  } else{
-    totalForm.style.position = 'sticky';
-    console.log(numberTrElements)
-  }
-}
+
 
 // function removeAssetFromCart(assetJSON, date){
   

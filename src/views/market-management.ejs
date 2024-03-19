@@ -186,7 +186,7 @@
                           <tr id="asset_<%= asset.asset_id %>" class="asset_item bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                             <td class="hidden asset_id"><%= asset.asset_id %></td>
                             <td onclick="openAssetDetail('<%= JSON.stringify(asset)%>',)" id="<%= asset.asset_id %>" data-account-id="<%= asset.asset_id %>" class="py-1 cursor-pointer  whitespace-nowrap " style="min-width: 44px;">
-                              <img class="w-9 bg-contain h-11 ml-2" src="/images/products/<%= index %>.jpg" alt="">
+                              <img class="w-9 bg-cover bg-center h-11 ml-2" src="/images/products/<%= asset.asset_id %>.jpg" alt="">
                             </td>
                             <td class="getName pl-3  dark:text-white" style="max-width: 180px;">
                                 <p class="font-medium text-gray-900 whitespace-nowrap overflow-hidden overflow-ellipsis"><%= asset.asset_name %></p>
@@ -223,8 +223,8 @@
 
             <!-- giao diện phụ  -->
 
-             <!-- giao diện hiển thị chi tiết thông tin tài sản   -->
-             <div id="AssetDetail" class="bg-black bg-opacity-10 absolute pt-14 z-40 top-0" style="height: 89vh; width: 82vw; padding-top: 50px; padding-left: 180px">
+             <!-- giao diện hiển thị chi tiết thông tin tài sản của duyệt tài sản   -->
+             <div id="AssetDetail" class="bg-black bg-opacity-10 hidden absolute pt-14 z-40 top-0" style="height: 89vh; width: 82vw; padding-top: 50px; padding-left: 180px">
                 <div class="container p-6 pr-2 bg-white shadow-lg rounded-lg relative" style="height: ; width: 48vw;">
                     <div type="button" onclick="hiddenAssetDetail()" class="absolute cursor-pointer text-gray-400 absolute top-2 right-2 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                         <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -234,8 +234,7 @@
                     <input type="text" name="selectedIds" id="chooseAssetId" class="hidden">
                     <div class="flex gap-3 relative">
                       <div class="relative">
-                        <div id="image-preview" class="bg-gray-200 bg-contain cursor-pointer rounded-md w-40 h-52 mt-8 mr-2 flex justify-center items-center mb-4 border border-blue-500">
-                          <span class="tex t-blue-500 text-xl">No Image</span>
+                        <div id="image-preview" class="bg-gray-200 bg-cover bg-center cursor-pointer rounded-md w-40 h-52 mt-8 mr-2 flex justify-center items-center mb-4 border border-blue-500">
                         </div>
                         <input type="file" id="fileInput" name="asset-image" class="hidden">
               
@@ -300,8 +299,8 @@
                             </div>
                         </div>
                         <div class="w-full text-sm mb-1 flex justify-center">
-                            <div id="" onclick="acceptAsset('chooseAssetId.value')" class="text-white text-sm cursor-pointer bg-blue-600 hover:bg-blue-700 border border-gray-400 py-2 px-4">Duyệt</div>
-                            <button id="" onclick="denyAsset('chooseAssetId.value')" class="text-gray-600 hover:text-gray-800 text-sm py-2 px-5">Xóa</button>
+                            <div id="" onclick="acceptAsset(document.getElementById('chooseAssetId').value)" class="text-white text-sm cursor-pointer bg-blue-600 hover:bg-blue-700 border border-gray-400 py-2 px-4">Duyệt</div>
+                            <button id="" onclick="denyAsset(document.getElementById('chooseAssetId').value)" class="text-gray-600 hover:text-gray-800 text-sm py-2 px-5">Xóa</button>
                         </div>
                   </form>
                 </div>

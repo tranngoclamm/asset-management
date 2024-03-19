@@ -17,14 +17,16 @@ const randomstring = require('randomstring');
 // app.set('view engine', 'ejs');
 
 function getAccounts(request, response) {
-  // response.render('../views/asset-management');
-    connection.query('SELECT id, username, password, full_name, email, phone_number, birth_date, role, address FROM accounts', (err, results) => {
+  var user_id = request.session.user_id; 
+  connection.query('SELECT id, username, password, full_name, email, phone_number, birth_date, role, address FROM accounts', (err, results) => {
     if (err) throw err;
-    response.render('../views/account-management', { results });
+    connection.query('SELECT * FROM accounts WHERE id = ?', [user_id], (err, account) => {
+      if (err) throw err;
+      let user = account[0];
+      response.render('../views/account-management', { results, user });
+    });
   });
-
-  };
-
+}
 
 
 const storage = multer.diskStorage({
@@ -93,8 +95,6 @@ function addAccount(request, response) {
       if (error) throw error;
       
       const insertedId = results.insertId; // Lấy ID của tài khoản đã chèn
-      console.log(insertedId);
-      console.log(query);
       response.json({ id: insertedId }); // Gửi ID của tài khoản về trong phản hồi JSON
     });
   });

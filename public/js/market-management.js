@@ -227,6 +227,32 @@ function openEditAsset(element){
     AssetAction.setAttribute('action', '/asset-management/update');
 
   }
+// tìm kiếm tên tài sản
+function searchByName() {
+  var input = document.getElementById("table-search").value.toLowerCase();
+  var assets = document.getElementsByClassName("asset_item");
+
+  for (var i = 0; i < assets.length; i++) {
+    var nameElement = assets[i].querySelector(".asset_name");
+    var name = nameElement.textContent.toLowerCase();
+
+    if (name.includes(input)) {
+      assets[i].style.display = "block";
+      var highlightedText = highlightText(name, input);
+      nameElement.innerHTML = highlightedText;
+      nameElement.classList.add="font-medium";
+    } else {
+      assets[i].style.display = "none";
+      nameElement.innerHTML = name;
+    }
+  }
+}
+
+// Tạo văn bản được tô màu
+function highlightText(text, keyword) {
+  var regex = new RegExp(keyword, "gi");
+  return text.replace(regex, "<span class='text-blue-500'>$&</span>");
+}
 
   //duyệt tài sản
 
@@ -437,4 +463,5 @@ function openMutilDenyBtn() {
     document.getElementById('multil_deny_btn').style.display='block';
   }
 }
+document.getElementById('table-search').addEventListener('input', searchByName);
 

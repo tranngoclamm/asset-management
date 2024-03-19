@@ -207,11 +207,14 @@ function uploadImage(){
 
 function openEditAccount(element){
     accountWrapper.style.display = 'block';
-    document.getElementById('submitBtn').innerText = 'Chỉnh sửa';
+    document.getElementById('addUserBtn').style.display='none';
+    document.getElementById('submitBtn').style.display = 'block';
     document.getElementById('submitBtn').style.backgroundColor = 'green'; 
     const accountId = element.dataset.accountId;
     const account = document.getElementById('Account_' + accountId);
     const cells = account.getElementsByTagName('td');
+    const imagePreview = document.getElementById('image-preview');
+    imagePreview.style.backgroundImage = `url(/images/avatars/${accountId}.jpg)`;
     // Kiểm tra nếu số lượng ô trong hàng tài khoản đúng
     idUser.value = cells[0].textContent;
     username.value = cells[1].textContent;

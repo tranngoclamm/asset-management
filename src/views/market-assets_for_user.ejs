@@ -153,7 +153,7 @@
                                             const formattedDate = day + '/' + month + '/' + year;
                                         %>
                                         <div class="asset_id hidden"> <%= asset.asset_id %> </div>
-                                        <img onclick="addAssetToCart('<%= JSON.stringify(asset) %>','<%= formattedDate %>')" data-value="'<%= asset.asset_id %>'" class="item_<%= asset.asset_id %>_market bg-contain h-40 w-full" src="images/products/<%= index %>.jpg" alt="">
+                                        <img onclick="addAssetToCart('<%= JSON.stringify(asset) %>','<%= formattedDate %>')" data-value="'<%= asset.asset_id %>'" class="item_<%= asset.asset_id %>_market bg-contain h-40 w-full" src="images/products/<%= asset.asset_id %>.jpg" alt="">
                                         <input onclick="chooseAsset()" type="checkbox" class="absolute choose_asset hidden top-0 right-0 border-gray-200 opacity-90 w-3.5 h-3.5">
                                         <% if ( asset.category != null) { %>
                                             <div onclick="filterByCategory('<%= asset.category %>')" class="bottom-0 left-0 z-10 absolute shopee_itemcard__discount_tag_container bg-shopee-yellow rounded-bl-sm">
@@ -195,8 +195,7 @@
                     <input type="text" name="selectedIds" id="chooseAssetId" class="hidden">
                     <div class="flex gap-3 relative">
                       <div class="relative">
-                        <div id="image-preview" class="bg-gray-200 bg-contain cursor-pointer rounded-md w-40 h-52 mt-8 mr-2 flex justify-center items-center mb-4 border border-blue-500">
-                          <span class="tex t-blue-500 text-xl">No Image</span>
+                        <div id="image-preview" class="bg-gray-200 bg-cover bg-center cursor-pointer rounded-md w-40 h-52 mt-8 mr-2 flex justify-center items-center mb-4 border border-blue-500">
                         </div>
                         <input type="file" id="fileInput" name="asset-image" class="hidden">
               
@@ -295,23 +294,25 @@
                     </tr>
                     <% let total = 0; %>
                     <% results.userCart.forEach((asset, index) => { %>
-                        <%  console.log=(asset);
+                        <%  
+                            console.log=(asset);
                             const date = new Date(asset.purchase_date);
                             const day = date.getDate();
                             const month = date.getMonth() + 1; // Vì tháng trong JavaScript bắt đầu từ 0
                             const year = date.getFullYear();
                             const formattedDate = day + '/' + month + '/' + year;
                         %>
-                    <tr class="number_tr" data-value="<%= asset.asset_id %>">
+                        <% let id = asset.asset_id %>
+                    <tr class="number_tr border-b border-gray-200" data-value="<%= asset.asset_id %>">
                       <td onclick="removeAssetFromCart('<%= asset.asset_id %>')" data-account-id="<%= asset.asset_id %>" class="py-1 cursor-pointer  whitespace-nowrap " style="min-width: 44px;">
-                        <img class="w-9 bg-contain h-11 ml-2" src="/images/products/<%= index %>.jpg" alt="">
+                        <img class="w-9 bg-contain h-11 ml-2" src="/images/products/<%= asset.asset_id %>.jpg" alt="">
                       </td>
                       <td class="getName dark:text-white" style="">
                         <p class=" ml-2 text-gray-900 font-medium w-44 whitespace-nowrap overflow-hidden overflow-ellipsis"><%= asset.asset_name %></p>
                         <p class="text-gray-400 ml-2"><%= asset.category %></p>
                       </td>
-                      <td class="hidden price_Item"><%= asset.price %></td>
-                      <td class="text-blue-700 text-right font-medium">
+                      <td class="hidden price_Item" data-value="<%= asset.price %>"></td>
+                      <td class="text-blue-700 text-right pr-1 font-medium">
                         <% total += asset.price; %>
                         <% const formattedPrice = asset.price.toLocaleString(); %>
                         <span class="align-baseline font-medium text-blue-700" style="line-height: 1.25rem; font-size: 15px;"><%= formattedPrice %>đ</span>
@@ -326,7 +327,7 @@
                             <img class="ml-1 w-9 h-9 mr-4" src="/images/icons/notebook-pen-icon.svg" alt="">
                             <p class="mr-2 ">Tổng:</p>
                             <span class="text-red-500" data-value="<%= total %>" id="total-cart"><%= total.toLocaleString() %>đ</span>
-                            <button class="absolute right-3"><img class="w-12 h-12" src="/images/icons/pay-with-credit-card.svg" alt=""></button>
+                            <button onclick="handleTransaction()" class="absolute right-3"><img class="w-12 h-12" src="/images/icons/pay-with-credit-card.svg" alt=""></button>
                         </div>
                     </td>
                 </tr>
@@ -339,6 +340,7 @@
     <!-- <script src="../controllers/accountController.js" type="text/javascript"></script> -->
     <script src="/js/redirect.js" type="text/javascript"></script>
     <script src="/js/market.js" type="text/javascript"></script>
+    <script src="/js/order.js" type="text/javascript"></script>
     <script src="/js/marketForAdmin.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 

@@ -6,7 +6,9 @@ function mutilChoose(){
 
       })
 }
-
+function cancelDelete(){
+    document.getElementById('DeleteForm').style.display = 'none';
+  }
 // ẩn checkbox khi không có checkbox nào được chọn
 function chooseAsset(){
     const checkboxes = document.querySelectorAll('.choose_asset');

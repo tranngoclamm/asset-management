@@ -95,7 +95,6 @@ function deleteExpenseItem(request, response) {
 // thay đổi tổng mục chi
 function changeTotalExpense(request, response) {
   const user_id = request.session.user_id;
-  console.log(user_id);
   const newTotalExpense = request.body.new_total_expense;
 
   // Kiểm tra xem người dùng đã có tổng chi tiêu chưa

@@ -42,8 +42,6 @@ const { query } = require('express');
       connection.query(query, function (error, results, fields) {
         if (error) throw error;
         const insertedId = results.insertId; // Lấy ID của tài sản đã chèn
-        console.log(insertedId)
-        console.log(query);
         response.json({ asset_id: insertedId }); // Gửi ID của tài sản về trong phản hồi JSON
       });
     }

@@ -9,6 +9,7 @@ const marketMangementController = require('../controllers/marketMangementControl
 const marketController = require('../controllers/marketController');
 const imageController = require('../controllers/imageController');
 const checkRole = require('../controllers/checkRole');
+const order = require('../controllers/order');
 const {uploadMulter} = require('../controllers/multer');
 
 
@@ -98,7 +99,9 @@ router.post('/expense-planner/delete', expenseController.deleteExpenseItem);
 router.post('/expense-planner/change-total-expense', expenseController.changeTotalExpense);
 module.exports = router;
 
-
+//
+router.post('/order', order.createPayment);
+router.get('/vnpay_return',order.createTransaction)
 
 // Định nghĩa route xử lý yêu cầu POST tải lên tệp ảnh
 router.post('/upload-image', imageController.upload);
