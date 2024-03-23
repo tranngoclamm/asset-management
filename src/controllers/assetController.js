@@ -1,5 +1,5 @@
 const path = require('path');
-const app = require('../../app1');
+const app = require('../../app');
 const connection = require('./db');
 const { query } = require('express');
 

@@ -97,6 +97,7 @@ function showExpenseForm(expenseInfo){
     if(expenseInfo == "add"){
       document.getElementById('name-expense').value = "";
       document.getElementById('amount-expense').value = "";
+      
       document.getElementById('note-expense').value = "";
       submitBtn.classList.add('text-white')
       submitBtn.classList.add("bg-blue-500")

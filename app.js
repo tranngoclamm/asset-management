@@ -5,7 +5,6 @@ const router = require('./src/routers/router');
 const app = express();
 const multer = require('multer');
 const connection = require('./src/controllers/db');
-// let accountData = null;
 
 // Cấu hình EJS
 // router.engine('ejs', require('ejs').__express);

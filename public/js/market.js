@@ -69,13 +69,17 @@ function highlightText(text, keyword) {
 // lọc theo thể loại
 function filterByCategory(category) {
   var assets = document.getElementsByClassName("asset_item");
-  for (var i = 0; i < assets.length; i++) {
-    var assetCategory = assets[i].querySelector(".asset_category").textContent.toLowerCase();
-    console.log(assetCategory)
-    if (assetCategory == "#"+category.toLowerCase()) {
-      assets[i].style.display = "block";
-    } else {
-      assets[i].style.display = "none";
+  if (assets !== null) {
+    for (var i = 0; i < assets.length; i++) {
+      var assetCategory = assets[i].querySelector(".asset_category");
+      if (assetCategory !== null) {
+        var categoryText = assetCategory.textContent.toLowerCase();
+        if (categoryText === "#" + category.toLowerCase()) {
+          assets[i].style.display = "block";
+        } else {
+          assets[i].style.display = "none";
+        }
+      }
     }
   }
 }
@@ -169,7 +173,7 @@ function openAssetDetail(assetJSON, date) {
         const html = `
             <tr class="number_tr" data-value = "${asset_id}">
             <td onclick="removeAssetFromCart(${asset.id})" data-account-id="${asset.id}" class="py-1 cursor-pointer whitespace-nowrap" style="min-width: 44px;">
-                <img class="w-9 bg-contain h-11 ml-2" src="/images/products/${'asset.id'}.jpg" alt="">
+                <img class="w-9 bg-contain h-11 ml-2" src="/images/products//${asset.id}.jpg" alt="">
             </td>
             <td class="getName dark:text-white" style="">
                 <p class="ml-2 text-gray-900 font-medium w-44 whitespace-nowrap overflow-hidden overflow-ellipsis">${asset.asset_name}</p>

@@ -168,7 +168,6 @@ function changePassWord(req, res){
 
 function resetPassword(request, response) {
 const { username } = request.body;
-console.log(request.body)
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // Cấu hình tài khoản email để gửi yêu cầu đặt lại mật khẩu

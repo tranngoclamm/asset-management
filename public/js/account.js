@@ -101,7 +101,6 @@ console.log(totalRows)
 function getdata(resultsData) {
     // const results = JSON.parse(resultsData);
 
-    console.log("233"+resultsData ); 
     return resultsData;
 }
 dropdownLink.addEventListener('click', function() {
@@ -137,33 +136,44 @@ function handleImageSelectionInAdd(event){
 
   reader.readAsDataURL(file);
 }
-async function addUser(){
+async function addUser() {
   const account = {};
   account.username = document.getElementById('username').value;
   account.password = document.getElementById('password').value;
   account.full_name = document.getElementById('full_name').value;
   account.email = document.getElementById('email').value;
-  account.phone_number =document.getElementById('phone_number').value;
+  account.phone_number = document.getElementById('phone_number').value;
   account.birth_date = document.getElementById('birth_date').value;
-  account.role =document.getElementById('role').value;
+  account.role = document.getElementById('role').value;
   account.address = document.getElementById('address').value;
-  console.log("account: " + account)
+  console.log("account: " + account);
+
+  // Kiểm tra dữ liệu đầu vào
+  if (!account.username || !account.password || !account.full_name || !account.email || !account.phone_number || !account.birth_date || !account.role || !account.address) {
+    alert('Vui lòng nhập đầy đủ thông tin!');
+    return;
+  }
+
   try {
     const response = await axios.post('/account-management/add', { account });
     const id = response.data.id;
-    console.log(response)
-    if (response.status == 400) {
-      // Nếu thành công, hiển thị thông báo thành công
-      alert('Tài khoản đã có người sử dụng!')
-      console.log("lỗi 400")
+    console.log(response);
+    if (response.status === 400) {
+      // Nếu thành công, hiển thị thông báo lỗi
+      alert('Tài khoản đã có người sử dụng!');
+      console.log("lỗi 400");
+      return;
     }
     document.getElementById('id_avtforImg').value = id; // gán id vào form up ảnh
     setTimeout(uploadImage, 20); // up ảnh
 
     document.getElementById('accountForm').style.display = 'none'; // ẩn giao diện
-    setTimeout(50, window.location.href="/account-management");
+    setTimeout(() => {
+      window.location.href = "/account-management";
+    }, 50);
   } catch (err) {
-    alert('Tài khoản đã có người sử dụng!')
+    alert('Có lỗi xảy ra khi thêm tài khoản!');
+    console.log(err);
   }
 }
 

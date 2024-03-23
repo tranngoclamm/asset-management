@@ -1,5 +1,5 @@
 const connection = require('./db');
-const app = require('../../app1');
+const app = require('../../app');
 const path = require('path');
 
 //lấy tất cả danh sách duyệt với chức năng duyệt tài sản
