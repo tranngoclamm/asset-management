@@ -51,9 +51,9 @@ router.get('/home', loginController.home);
 
 router.get('/account-management', checkRole('Admin'), accountController.getAccounts);
 router.post('/account-management', checkRole('Admin'), accountController.getAccounts);
-router.post('/account-management/add', accountController.addAccount);
-router.post('/account-management/update', accountController.updateAccount);
-router.get('/account-management/delete', accountController.deleteAccount);
+router.post('/account-management/add', checkRole('Admin'), accountController.addAccount);
+router.post('/account-management/update', checkRole('Admin'), accountController.updateAccount);
+router.get('/account-management/delete', checkRole('Admin'), accountController.deleteAccount);
 
 router.post('/forgot', accountController.resetPassword);
 
@@ -73,7 +73,7 @@ router.get('/market-management', checkRole(['KDV', 'Admin']), marketMangementCon
 router.post('/market-management/delete', checkRole(['KDV', 'Admin']), marketMangementController.deleteMarketAsset);
 
 //market
-router.get('/market', marketController.getMarketAssets);
+router.get('/market', checkRole(['KDV', 'Admin', 'User']), marketController.getMarketAssets);
 router.post('/market/add-to-cart', checkRole(['KDV', 'Admin', 'User']), marketController.addToCart);
 router.post('/market/remove-from-cart', checkRole(['KDV', 'Admin', 'User']), marketController.removeFromCart);
 // router.post('/market/payment', checkRole(['KDV', 'Admin', 'User']), marketController.getMarketAssets);
@@ -81,27 +81,27 @@ router.post('/market/remove-from-cart', checkRole(['KDV', 'Admin', 'User']), mar
 // asset-management
 router.get('/asset-management', checkRole(['KDV', 'Admin', 'User']), assetController.getAssets);
 router.post('/asset-management', checkRole(['KDV', 'Admin', 'User']), assetController.getAssets);
-router.post('/asset-management/add', assetController.addAsset);
-router.post('/asset-management/delete', assetController.deleteAssets);
-router.post('/asset-management/update', assetController.updateAsset);
-router.post('/asset-management/check-pending-assets', assetController.checkingAssetInPending);
-router.post('/asset-management/check-market-assets', assetController.checkingAssetInMarket);
-router.post('/asset-management/sell', assetController.sellAsset);
+router.post('/asset-management/add',checkRole(['KDV', 'Admin', 'User']), assetController.addAsset);
+router.post('/asset-management/delete',checkRole(['KDV', 'Admin', 'User']), assetController.deleteAssets);
+router.post('/asset-management/update',checkRole(['KDV', 'Admin', 'User']), assetController.updateAsset);
+router.post('/asset-management/check-pending-assets',checkRole(['KDV', 'Admin', 'User']), assetController.checkingAssetInPending);
+router.post('/asset-management/check-market-assets',checkRole(['KDV', 'Admin', 'User']), assetController.checkingAssetInMarket);
+router.post('/asset-management/sell',checkRole(['KDV', 'Admin', 'User']), assetController.sellAsset);
 
 
 
 
 //expense-planner
-router.get('/expense-planner', expenseController.getExpense);
-router.post('/expense-planner/add', expenseController.addExpenseItem);
-router.post('/expense-planner/edit', expenseController.editExpenseItem);
-router.post('/expense-planner/delete', expenseController.deleteExpenseItem);
-router.post('/expense-planner/change-total-expense', expenseController.changeTotalExpense);
+router.get('/expense-planner',checkRole(['KDV', 'Admin', 'User']), expenseController.getExpense);
+router.post('/expense-planner/add',checkRole(['KDV', 'Admin', 'User']), expenseController.addExpenseItem);
+router.post('/expense-planner/edit',checkRole(['KDV', 'Admin', 'User']), expenseController.editExpenseItem);
+router.post('/expense-planner/delete',checkRole(['KDV', 'Admin', 'User']), expenseController.deleteExpenseItem);
+router.post('/expense-planner/change-total-expense',checkRole(['KDV', 'Admin', 'User']), expenseController.changeTotalExpense);
 module.exports = router;
 
 //
-router.post('/order', order.createPayment);
-router.get('/vnpay_return',order.createTransaction)
+router.post('/order',checkRole(['KDV', 'Admin', 'User']), order.createPayment);
+router.get('/vnpay_return',checkRole(['KDV', 'Admin', 'User']),order.createTransaction)
 
 // Định nghĩa route xử lý yêu cầu POST tải lên tệp ảnh
 router.post('/upload-image', imageController.upload);

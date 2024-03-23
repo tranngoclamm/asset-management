@@ -32,7 +32,12 @@ function getExpense(request, response) {
               } else {
                   results = { total_expense: total_expense, expenses: expenses };
               }
-              response.render('../views/expense-planner', { results });
+              var id = request.session.user_id;
+              connection.query('SELECT * FROM accounts WHERE id = ?', [id], (err, account) => {
+                if (err) throw err;
+                let user = account[0];
+                response.render('../views/expense-planner', { results, user });
+              });
           }
       });
   });

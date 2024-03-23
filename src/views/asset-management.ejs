@@ -10,20 +10,20 @@
     <header class="flex">
         <div class="w-2/12 bg-blue-500 h-11" style="background-color: #3a82f8;">
         </div>
+       
         <div class="w-10/12 relative">
             <div class="flex h-11 bg-blue-500 items-center">
                 <button>
                     <img class="text-justify h-7 ml-2" src="images/icons/bars-solid.svg" alt="">
                 </button>
-                <h2 class="text-white font-sans font-medium ml-2">QUẢN LÝ TÀI SẢN</h2>
+                <h2 class="text-white font-sans font-medium ml-2">QUẢN LÝ TÀI KHOẢN</h2>
                 <div class="ml-auto flex items-center">
-                    <!-- <span class="text-xs text-white mr-1">Nguyễn Phương Hoa</span> -->
                     <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar" class="flex items-center justify-between text-xs text-white mr-1">
-                        <p class="mr-1 font-medium">Nguyễn Phương Hoa</p> 
+                        <p class="mr-1 font-medium"> <%= user.full_name %> </p>
                         <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg>
                     </button>
                     <button>
-                        <img src="images/avatars/test-avt.jpg" class="w-8 h-8 border border-white rounded-full ml-1 mr-2" alt="">
+                        <img src="images/avatars/<%=user.id%>.jpg" class="w-8 h-8 border border-white rounded-full ml-1 mr-2" alt="">
                     </button>
                     <button class="w-4 h-4 text-xs flex justify-center items-center border border-white rounded-full text-white mr-10">?</button>
                 </div>
@@ -50,11 +50,11 @@
         <nav class="w-2/12 text-black font-sans border-r border-gray-400 bg-100 h-fulls relative  flex flex-col shadow-md items-center" style="color: #BBC0C4;background-color:#263755 ; background-image: url('images/nigh.jpg');background-size:cover; background-position: center;">
             <!-- <div class="w-full h-52" style=" position: absolute;top: 0;  left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.01);"> -->
             <div class="w-full h-40 relative border-b bg-gray-50 border-gray-600 bouder-double" style="background-color:#32373C ; background-image: url('images/night.jpg');background-size:cover; background-position: center;"> 
-              <div class="h-2/6 w-full p-8 pl-16 rounded-full  ">
-                <img class="rounded-full h-20 opacity-95 " src="images/avatars/test-avt.jpg" alt=""> 
+              <div class="h-2/6 w-full p-8 absolute top-4 left-4 rounded-full pl-12 pt-3.5 ">
+                <img class="rounded-full h-20 w-20 opacity-95  " src="images/avatars/<%=user.id%>.jpg" alt=""> 
               </div>
-              <button class="text-xs absolute bottom-2.5 left-5  rounded-sm py-0.5 px-2">Đổi mật khẩu</button>
-              <button class="text-xs absolute bottom-2.5 left-28  rounded-sm py-0.5 px-1">Đăng xuất</button>
+              <a href="/changepassword" class="text-xs absolute bottom-2.5 left-5  rounded-sm py-0.5 px-2" target="_blank">Đổi mật khẩu</a>
+              <a href="/logout" class="text-xs absolute bottom-2.5 left-28  rounded-sm py-0.5 px-1">Đăng xuất</a>
             </div>
             <div class="w-full mb-0.5 ml-1">
                 <menu class="h-64 flex-col flex pl-2.5 pr-3.5 rounded-lg items-center justify-evenly">

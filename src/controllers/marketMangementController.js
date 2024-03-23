@@ -43,7 +43,12 @@ function getPendingAssets(request, response) {
   // Thực hiện truy vấn SQL
   connection.query(queryString, [(searchQuery ? `%${searchQuery}%` : null)], (err, results) => {
       if (err) throw err;
-      response.render('../views/market-management', { results });
+      var id = request.session.user_id;
+      connection.query('SELECT * FROM accounts WHERE id = ?', [id], (err, account) => {
+        if (err) throw err;
+        let user = account[0];
+        response.render('../views/market-management', { results, user });
+      });
   });
 }
 
@@ -88,7 +93,12 @@ function getMarketAssets(request, response){
     // Thực hiện truy vấn SQL
     connection.query(queryString, [(searchQuery ? `%${searchQuery}%` : null)], (err, results) => {
         if (err) throw err;
-        response.render('../views/market-assets_for_admin', { results });
+        var id = request.session.user_id;
+        connection.query('SELECT * FROM accounts WHERE id = ?', [id], (err, account) => {
+          if (err) throw err;
+          let user = account[0];
+          response.render('../views/market-assets_for_admin', { results, user });
+        });
     });
 
 }

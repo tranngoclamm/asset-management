@@ -22,12 +22,30 @@ const { query } = require('express');
           // Thêm điều kiện sắp xếp vào câu truy vấn
           queryString += ` ORDER BY ${sortBy} ${sortOrder}`;
       }
+      
   
       // Thực hiện truy vấn SQL
       connection.query(queryString, [...(searchQuery ? [`%${searchQuery}%`, `%${searchQuery}%`, `%${searchQuery}%`, `%${searchQuery}%`] : []), id_user], (err, results) => {
           if (err) throw err;
-          response.render('../views/asset-management', { results });
+          var id = request.session.user_id;
+          connection.query('SELECT * FROM accounts WHERE id = ?', [id], (err, account) => {
+            if (err) throw err;
+            let user = account[0];
+            response.render('../views/asset-management', { results, user });
+          });
       });
+  }
+  
+  function getAccounts(request, response) {
+    var user_id = request.session.user_id; 
+    connection.query('SELECT id, username, password, full_name, email, phone_number, birth_date, role, address FROM accounts', (err, results) => {
+      if (err) throw err;
+      connection.query('SELECT * FROM accounts WHERE id = ?', [user_id], (err, account) => {
+        if (err) throw err;
+        let user = account[0];
+        response.render('../views/account-management', { results, user });
+      });
+    });
   }
   
   

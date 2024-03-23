@@ -129,8 +129,12 @@ function getMarketAssets(request, response) {
       connection.query(queryString2, queryParameters2, (err, result2) => {
         if (err) throw err;
         results.userCart = result2;
-  
-        response.render('../views/market-assets_for_user', {results});
+        var id = request.session.user_id;
+        connection.query('SELECT * FROM accounts WHERE id = ?', [id], (err, account) => {
+          if (err) throw err;
+          let user = account[0];
+          response.render('../views/market-assets_for_user', { results, user });
+        });
       });
     });
   }
